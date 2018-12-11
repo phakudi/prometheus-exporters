@@ -1,0 +1,2 @@
+/etc/init.d/mysqld_exporter
+/etc/mysqld_exporter/my.cnf
