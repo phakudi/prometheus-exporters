@@ -13,3 +13,14 @@ script:
 
 after_success:
   - make lint -C mysqld_exporter
+
+
+deploy:
+  - provider: bintray
+    skip_cleanup: true
+    file: "deb/bintray-descriptor.json"
+    user: "$BINTRAY_USER"
+    key: "$BINTRAY_API_KEY"
+    on:
+      tags: true
+      condition: $PACKAGE_VERSION != "" && $IS_PRIMARY_MATRIX_JOB == "true" && $BINTRAY_API_KEY != ""
