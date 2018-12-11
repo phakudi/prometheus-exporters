@@ -22,5 +22,5 @@ deploy:
     user: "$BINTRAY_USER"
     key: "$BINTRAY_API_KEY"
     on:
-      tags: true
+      tags: false
       condition: $PACKAGE_VERSION != "" && $IS_PRIMARY_MATRIX_JOB == "true" && $BINTRAY_API_KEY != ""
