@@ -6,9 +6,9 @@
   },
 
   "version": {
-    "name": "@PACKAGE_VERSION@",
-    "desc": "Version @PACKAGE_VERSION@",
-    "released": "@PACKAGE_DATE@"
+    "name": "v1",
+    "desc": "Version v1",
+    "released": "11-Dec-2018"
   },
 
   "files":
