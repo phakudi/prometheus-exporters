@@ -1,8 +1,8 @@
 {
   "package": {
     "name": "mysqld-exporter",
-    "repo": "debian",
-    "subject": "apptuitai"
+    "repo": "myapptuit",
+    "subject": "phakudicompany"
   },
 
   "version": {
@@ -13,7 +13,7 @@
 
   "files":
   [
-    {"includePattern": "deb/dist/(.*\\.deb)", "uploadPattern": "/pool/m/mysqld-exporter/$1",
+    {"includePattern": "mysqld_exporter/deb/dist/(.*\\.deb)", "uploadPattern": "/pool/m/mysqld-exporter/$1",
       "matrixParams": {
         "deb_distribution": "stable,jessie,stretch,artful,wheezy,xenial,zesty,trusty",
         "deb_component": "mysqld-exporter",
