@@ -18,7 +18,7 @@ after_success:
 deploy:
   - provider: bintray
     skip_cleanup: true
-    file: "deb/bintray-descriptor.json"
+    file: "mysqld_exporter/deb/bintray-descriptor.json"
     user: "$BINTRAY_USER"
     key: "$BINTRAY_API_KEY"
     on:
