@@ -1,0 +1,26 @@
+language: python
+
+python:
+  - "2.7"
+
+install:
+  - sudo apt-get -qq update
+  - sudo apt-get install -y rpm python-rpm
+  - sudo apt-get install -y lintian
+
+script:
+  - make -C mysqld_exporter
+
+after_success:
+  - make lint -C mysqld_exporter
+
+
+deploy:
+  - provider: bintray
+    skip_cleanup: true
+    file: "deb/bintray-descriptor.json"
+    user: "$BINTRAY_USER"
+    key: "$BINTRAY_API_KEY"
+    on:
+      tags: true
+      condition: $PACKAGE_VERSION != "" && $IS_PRIMARY_MATRIX_JOB == "true" && $BINTRAY_API_KEY != ""
