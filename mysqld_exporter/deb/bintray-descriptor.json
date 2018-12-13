@@ -1,8 +1,8 @@
 {
   "package": {
     "name": "mysqld-exporter",
-    "repo": "myapptuit",
-    "subject": "phakudicompany"
+    "repo": "debian",
+    "subject": "phakudiapptuittestorg"
   },
 
   "version": {
