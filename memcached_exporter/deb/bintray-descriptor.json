@@ -1,0 +1,27 @@
+{
+  "package": {
+    "name": "memcached-exporter",
+    "repo": "debian",
+    "subject": "phakudiapptuittestorg"
+  },
+
+  "version": {
+    "name": "@PACKAGE_VERSION@",
+    "desc": "Version @PACKAGE_VERSION@",
+    "released": "@PACKAGE_DATE@",
+    "vcs_tag": "memcached_exporter-v@PACKAGE_VERSION@"
+  },
+
+  "files":
+  [
+    {
+      "includePattern": "memcached_exporter/deb/dist/(.*\\.deb)", "uploadPattern": "/pool/n/memcached-exporter/$1",
+      "matrixParams": {
+        "deb_distribution": "stable,jessie,stretch,artful,wheezy,xenial,zesty,trusty",
+        "deb_component": "memcached-exporter",
+        "deb_architecture": "i386,amd64"
+      }
+    }
+  ],
+  "publish": true
+}

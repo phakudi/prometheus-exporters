@@ -2,7 +2,7 @@
 
 . ../common.sh
 
-PACKAGE_NAME='node-exporter'
+PACKAGE_NAME='memcached-exporter'
 OS=$(get_os)
 
 trap post_error ERR
