@@ -5,6 +5,10 @@ install:
   - sudo apt-get install -y rpm python-rpm
   - sudo apt-get install -y lintian
 
+branches:
+  except:
+    - master
+
 before_script:
   - if [[ $TRAVIS_TAG == *-v* ]]; then export PACKAGE_MODULE=${TRAVIS_TAG%\-v*}; export PACKAGE_VERSION=${TRAVIS_TAG#*\-v}; fi
   - echo $TRAVIS_TAG
