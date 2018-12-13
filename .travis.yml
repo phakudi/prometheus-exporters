@@ -25,9 +25,9 @@ before_deploy:
 deploy:
   - provider: bintray
     skip_cleanup: true
-    file: "mysqld_exporter/deb/bintray-descriptor.json"
+    file: "$PACKAGE_MODULE/deb/bintray-descriptor.json"
     user: "$BINTRAY_USER"
     key: "$BINTRAY_API_KEY"
     on:
       tags: false
-      condition: $PACKAGE_VERSION != "" && $IS_PRIMARY_MATRIX_JOB == "true" && $BINTRAY_API_KEY != ""
+      condition: $PACKAGE_MODULE != "" && $PACKAGE_VERSION != "" && $BINTRAY_API_KEY != ""
