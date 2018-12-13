@@ -16,10 +16,10 @@ before_script:
   - echo $PACKAGE_VERSION
 
 script:
-  - make -C mysqld_exporter
+  - make -C $PACKAGE_MODULE
 
 after_success:
-  - make lint -C mysqld_exporter
+  - make lint -C $PACKAGE_MODULE
 
 before_deploy:
   - PACKAGE_DATE=$(git log -1 --pretty="format:%ad" $TRAVIS_TAG --date=short);
