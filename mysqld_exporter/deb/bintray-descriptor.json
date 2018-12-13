@@ -6,9 +6,10 @@
   },
 
   "version": {
-    "name": "v1",
-    "desc": "Version v1",
-    "released": "11-Dec-2018"
+    "name": "@PACKAGE_VERSION@",
+    "desc": "Version @PACKAGE_VERSION@",
+    "released": "@PACKAGE_DATE@",
+    "vcs_tag": "mysqld_exporter-v@PACKAGE_VERSION@"
   },
 
   "files":
@@ -21,5 +22,6 @@
       }
     }
   ],
-  "publish": true
+  "publish": true,
+  "override": true
 }
