@@ -29,5 +29,5 @@ deploy:
     user: "$BINTRAY_USER"
     key: "$BINTRAY_API_KEY"
     on:
-      tags: false
+      tags: true
       condition: $PACKAGE_MODULE != "" && $PACKAGE_VERSION != "" && $BINTRAY_API_KEY != ""
