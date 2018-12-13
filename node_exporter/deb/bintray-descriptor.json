@@ -15,7 +15,7 @@
   "files":
   [
     {
-      "includePattern": "node_exporter/deb/dist/(.*\\.deb)", "uploadPattern": "/pool/m/node-exporter/$1",
+      "includePattern": "node_exporter/deb/dist/(.*\\.deb)", "uploadPattern": "/pool/n/node-exporter/$1",
       "matrixParams": {
         "deb_distribution": "stable,jessie,stretch,artful,wheezy,xenial,zesty,trusty",
         "deb_component": "node-exporter",
