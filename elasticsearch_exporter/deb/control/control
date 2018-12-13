@@ -9,4 +9,4 @@ Provides: @DEB_PACKAGE_NAME@
 Section: utils
 Priority: optional
 Homepage: https://apptuit.ai/promex
-Description: Prometheus Memcached metrics exporter for apptuit.ai
+Description: Prometheus Elastic Search metrics exporter for apptuit.ai
