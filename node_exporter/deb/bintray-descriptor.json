@@ -1,0 +1,27 @@
+{
+  "package": {
+    "name": "node-exporter",
+    "repo": "myapptuit",
+    "subject": "phakudicompany"
+  },
+
+  "version": {
+    "name": "@PACKAGE_VERSION@",
+    "desc": "Version @PACKAGE_VERSION@",
+    "released": "@PACKAGE_DATE@",
+    "vcs_tag": "node_exporter-v@PACKAGE_VERSION@"
+  },
+
+  "files":
+  [
+    {
+      "includePattern": "node_exporter/deb/dist/(.*\\.deb)", "uploadPattern": "/pool/m/node-exporter/$1",
+      "matrixParams": {
+        "deb_distribution": "stable,jessie,stretch,artful,wheezy,xenial,zesty,trusty",
+        "deb_component": "node-exporter",
+        "deb_architecture": "i386,amd64"
+      }
+    }
+  ],
+  "publish": true
+}

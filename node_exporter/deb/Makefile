@@ -1,4 +1,4 @@
-# Makefile for building deb packages for mysqld_exporter
+# Makefile for building deb packages for node_exporter
 
 OS := linux
 DEB_BINTRAY_URL := https://dl.bintray.com/apptuitai/debian/pool/m/$(DEB_PACKAGE_NAME)/
@@ -27,10 +27,10 @@ dlsrcpkg:
 deb:
 	mkdir -p dist/
 	mkdir -p build/DEBIAN/
-	mkdir -p build/opt/prometheus/$(SRC_PACKAGE_NAME)/
+	mkdir -p build/opt/$(SRC_PACKAGE_NAME)/
 	cp -r control/* build/DEBIAN/
 	cp -r etc/ build/
-	cp build-tmp/$(SRC_PKG_BASE_NAME)/$(SRC_PACKAGE_NAME) build/opt/prometheus/$(SRC_PACKAGE_NAME)/
+	cp build-tmp/$(SRC_PKG_BASE_NAME)/$(SRC_PACKAGE_NAME) build/opt/$(SRC_PACKAGE_NAME)/
 	set -e; { \
 		sed \
 			-e 's/@DEB_PACKAGE_NAME@/$(DEB_PACKAGE_NAME)/' \
