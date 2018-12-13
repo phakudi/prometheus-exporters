@@ -1,12 +1,15 @@
-language: python
-
-python:
-  - "2.7"
+language: generic
 
 install:
   - sudo apt-get -qq update
   - sudo apt-get install -y rpm python-rpm
   - sudo apt-get install -y lintian
+
+before_script:
+  - if [[ $TRAVIS_TAG == *-v* ]]; then export PACKAGE_MODULE=${TRAVIS_TAG#*\-v}; export PACKAGE_VERSION=${TRAVIS_TAG%\-v*}; fi
+  - echo $TRAVIS_TAG
+  - echo $PACKAGE_MODULE
+  - echo $PACKAGE_VERSION
 
 script:
   - make -C mysqld_exporter
@@ -14,6 +17,10 @@ script:
 after_success:
   - make lint -C mysqld_exporter
 
+before_deploy:
+  - PACKAGE_DATE=$(git log -1 --pretty="format:%ad" $TRAVIS_TAG --date=short);
+  - echo $PACKAGE_DATE;
+  - sed -e "s/@PACKAGE_DATE@/$PACKAGE_DATE/" -e "s/@PACKAGE_VERSION@/$PACKAGE_VERSION/" -i $MODULE/deb/bintray-descriptor.json;
 
 deploy:
   - provider: bintray
