@@ -19,7 +19,8 @@
       "matrixParams": {
         "deb_distribution": "stable,jessie,stretch,artful,wheezy,xenial,zesty,trusty",
         "deb_component": "mysqld-exporter",
-        "deb_architecture": "i386,amd64"
+        "deb_architecture": "i386,amd64",
+        "override": 1
       }
     }
   ],
