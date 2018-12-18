@@ -17,9 +17,9 @@
     {
       "includePattern": "mysqld_exporter/deb/dist/(.*\\.deb)", "uploadPattern": "/pool/m/mysqld-exporter/$1",
       "matrixParams": {
-        "deb_distribution": "stable,bionic",
+        "deb_distribution": "stable,bionic,xenial,trusty,jessie,stretch",
         "deb_component": "mysqld-exporter,main",
-        "deb_architecture": "i386,amd64",
+        "deb_architecture": "amd64,i386,armhf,arm64,armel,ppc64el,mips64el,mips,mipsel,s390x",
         "override": 1
       }
     }
