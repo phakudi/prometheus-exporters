@@ -19,7 +19,7 @@
       "matrixParams": {
         "deb_distribution": "stable,bionic,xenial,trusty,jessie,stretch",
         "deb_component": "mysqld-exporter,main",
-        "deb_architecture": "amd64,i386,armhf,arm64,armel,ppc64el,mips64el,mips,mipsel,s390x",
+        "deb_architecture": "amd64,armhf,arm64,armel,ppc64el,mips64el,s390x",
         "override": 1
       }
     }
