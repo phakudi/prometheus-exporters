@@ -136,7 +136,7 @@ function install_debian () {
     print_message "Updating $1 repo\n"
     $sudo_cmd apt-get update -o Dir::Etc::sourcelist="sources.list.d/apptuit.list" -o Dir::Etc::sourceparts="-" -o APT::Get::List-Cleanup="0"
     print_message "Installing $1\n"
-    $sudo_cmd apt-get install -y --force-yes $1
+    $sudo_cmd apt-get install -y --allow-unauthenticated $1
 }
 
 function install_redhat () {
