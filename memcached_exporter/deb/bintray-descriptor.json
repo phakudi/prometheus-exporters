@@ -15,7 +15,7 @@
   "files":
   [
     {
-      "includePattern": "memcached_exporter/deb/dist/(.*\\.deb)", "uploadPattern": "/pool/n/memcached-exporter/$1",
+      "includePattern": "memcached_exporter/deb/dist/(.*\\.deb)", "uploadPattern": "/pool/m/memcached-exporter/$1",
       "matrixParams": {
         "deb_distribution": "stable,jessie,stretch,artful,wheezy,xenial,zesty,trusty",
         "deb_component": "memcached-exporter",

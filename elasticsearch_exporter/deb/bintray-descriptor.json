@@ -15,7 +15,7 @@
   "files":
   [
     {
-      "includePattern": "elasticsearch_exporter/deb/dist/(.*\\.deb)", "uploadPattern": "/pool/n/elasticsearch-exporter/$1",
+      "includePattern": "elasticsearch_exporter/deb/dist/(.*\\.deb)", "uploadPattern": "/pool/e/elasticsearch-exporter/$1",
       "matrixParams": {
         "deb_distribution": "stable,jessie,stretch,artful,wheezy,xenial,zesty,trusty",
         "deb_component": "elasticsearch-exporter",
