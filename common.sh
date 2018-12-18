@@ -108,7 +108,7 @@ function start_service () {
     if $($1_install_only); then
        print_message  "warn" "$1_INSTALL_ONLY environment variable set: $1 will not be started.
 You can start it manually using the following command:\n\n\t$restart_cmd\n\n"
-        post_complete
+        post_complete $1
         exit
     fi
 

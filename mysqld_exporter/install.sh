@@ -9,7 +9,7 @@ DEFAULT_MYSQL_HOST='localhost'
 DEFAULT_MYSQL_PORT='3306'
 DEFAULT_MYSQL_USER='root'
 
-trap post_error ERR
+trap 'post_error ${PACKAGE_NAME}' ERR
 check_root
 setup_log $PACKAGE_NAME
 post_complete $PACKAGE_NAME
