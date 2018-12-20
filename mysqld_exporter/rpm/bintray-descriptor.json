@@ -1,0 +1,28 @@
+{
+  "package": {
+    "name": "mysqld-exporter",
+    "repo": "debian",
+    "subject": "phakudiapptuittestorg"
+  },
+
+  "version": {
+    "name": "@PACKAGE_VERSION@",
+    "desc": "Version @PACKAGE_VERSION@",
+    "released": "@PACKAGE_DATE@",
+    "vcs_tag": "mysqld_exporter-v@PACKAGE_VERSION@"
+  },
+
+  "files":
+  [
+    {
+      "includePattern": "mysqld_exporter/deb/dist/(.*\\.deb)", "uploadPattern": "/pool/m/mysqld-exporter/$1",
+      "matrixParams": {
+        "deb_distribution": "stable,bionic,xenial,trusty,jessie,stretch",
+        "deb_component": "mysqld-exporter,main",
+        "deb_architecture": "amd64,armhf,arm64,armel,ppc64el,mips64el",
+        "override": 1
+      }
+    }
+  ],
+  "publish": true
+}

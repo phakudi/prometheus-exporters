@@ -2,24 +2,43 @@
 
 
 export SRC_PACKAGE_NAME := ${PACKAGE_MODULE}
+
 export DEB_PACKAGE_NAME := mysqld-exporter
+export RPM_PACKAGE_NAME := mysqld-exporter
+
 export PACKAGE_REVISION := 1
 export PACKAGE_LICENSE := Apache-2.0
-export DEB_SRC_ARCHS := 386 amd64
+
 export DEB_TARGET_amd64_ARCH := amd64
 export DEB_TARGET_arm64_ARCH := arm64
 export DEB_TARGET_armv7_ARCH := armhf
 export DEB_TARGET_ppc64le_ARCH := ppc64el
 export DEB_TARGET_mips64le_ARCH := mips64el
 
-all: call-deb
+export RPM_TARGET_amd64_ARCH := x86_64
+export DEB_TARGET_arm64_ARCH := arm64
+export DEB_TARGET_armv7_ARCH := armhf
+export DEB_TARGET_ppc64le_ARCH := ppc64el
+export DEB_TARGET_mips64le_ARCH := mips64el
 
-call-deb:
-	make 'DEB_SRC_ARCH=amd64' -C deb/
-	make 'DEB_SRC_ARCH=arm64' -C deb/
-	make 'DEB_SRC_ARCH=armv7' -C deb/
-	make 'DEB_SRC_ARCH=ppc64le' -C deb/
-	make 'DEB_SRC_ARCH=mips64le' -C deb/
+export GIT_VERSION := \
+  $(shell git rev-list --pretty=format:%h HEAD --max-count=1 | sed 1d || echo unknown)
+export GIT_FULLSHA1 := \
+  $(shell git rev-list --pretty=format:%H HEAD --max-count=1 | sed 1d || echo unknown)
+export GIT_SHORTSHA1 := \
+  $(shell git rev-list --pretty=format:%h HEAD --max-count=1 | sed 1d || echo unknown)
+
+all: call-deb call-rpm
+
+call-deb: ;
+#	make 'DEB_SRC_ARCH=amd64' -C deb/
+#	make 'DEB_SRC_ARCH=arm64' -C deb/
+#	make 'DEB_SRC_ARCH=armv7' -C deb/
+#	make 'DEB_SRC_ARCH=ppc64le' -C deb/
+#	make 'DEB_SRC_ARCH=mips64le' -C deb/
+
+call-rpm:
+	make 'RPM_SRC_ARCH=amd64' -C rpm/
 
 lint:
 	make 'DEB_SRC_ARCH=amd64' -C deb/ lint
