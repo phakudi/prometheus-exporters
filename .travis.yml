@@ -35,3 +35,11 @@ deploy:
     on:
       tags: true
       condition: $PACKAGE_MODULE != "" && $PACKAGE_VERSION != "" && $BINTRAY_API_KEY != ""
+  - provider: bintray
+    skip_cleanup: true
+    file: "$PACKAGE_MODULE/rpm/bintray-descriptor.json"
+    user: "$BINTRAY_USER"
+    key: "$BINTRAY_API_KEY"
+    on:
+      tags: true
+      condition: $PACKAGE_MODULE != "" && $PACKAGE_VERSION != "" && $BINTRAY_API_KEY != ""
