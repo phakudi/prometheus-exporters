@@ -25,6 +25,7 @@ before_deploy:
   - PACKAGE_DATE=$(git log -1 --pretty="format:%ad" $TRAVIS_TAG --date=short);
   - echo $PACKAGE_DATE;
   - sed -e "s/@PACKAGE_DATE@/$PACKAGE_DATE/" -e "s/@PACKAGE_VERSION@/$PACKAGE_VERSION/" -i $PACKAGE_MODULE/deb/bintray-descriptor.json;
+  - sed -e "s/@PACKAGE_DATE@/$PACKAGE_DATE/" -e "s/@PACKAGE_VERSION@/$PACKAGE_VERSION/" -i $PACKAGE_MODULE/rpm/bintray-descriptor.json;
 
 deploy:
   - provider: bintray
