@@ -1,7 +1,7 @@
 {
   "package": {
     "name": "mysqld-exporter",
-    "repo": "debian",
+    "repo": "rpm",
     "subject": "phakudiapptuittestorg"
   },
 
@@ -15,7 +15,7 @@
   "files":
   [
     {
-      "includePattern": "mysqld_exporter/deb/dist/(.*\\.deb)", "uploadPattern": "/pool/m/mysqld-exporter/$1",
+      "includePattern": "mysqld_exporter/rpm/dist/(.*\\.rpm)", "uploadPattern": "/pool/m/mysqld-exporter/$1",
       "matrixParams": {
         "deb_distribution": "stable,bionic,xenial,trusty,jessie,stretch",
         "deb_component": "mysqld-exporter,main",
