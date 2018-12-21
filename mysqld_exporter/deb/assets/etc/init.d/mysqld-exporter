@@ -1,22 +1,22 @@
 #!/bin/sh
 #
-# mysqld_exporter   Startup script for the Prometheus mysqld exporter
+# mysqld-exporter   Startup script for the Prometheus mysqld exporter
 #
 # chkconfig:   2345 15 85
-# description: mysqld_exporter - Prometheus MySQL metrics exporter for apptuit.ai
-# processname: mysqld_exporter
+# description: mysqld-exporter - Prometheus MySQL metrics exporter for apptuit.ai
+# processname: mysqld-exporter
 #
 ### BEGIN INIT INFO
-# Provides:          mysqld_exporter
-# Required-Start:    $network $remote_fs
-# Required-Stop:     $network $remote_fs
+# Provides:          mysqld-exporter
+# Required-Start:    $network $mysql
+# Required-Stop:     $network $mysql
 # Default-Start:     2 3 4 5
 # Default-Stop:      0 1 6
-# Short-Description: mysqld_exporter - Prometheus MySQL metrics exporter for apptuit.ai
+# Short-Description: mysqld-exporter - Prometheus MySQL metrics exporter for apptuit.ai
 ### END INIT INFO
 
 WORKING_DIR=/opt/prometheus/mysqld_exporter
-DAEMON="${WORKING_DIR}/mysqld_exporter"
+DAEMON="${WORKING_DIR}/bin/mysqld_exporter"
 
 . /lib/lsb/init-functions
 
@@ -37,7 +37,7 @@ sanity_check() {
 
 case $1 in
     start)
-        log_daemon_msg "Starting mysqld_exporter"
+        log_daemon_msg "Starting mysqld-exporter"
         sanity_check || return $?
 
         start-stop-daemon --start --quiet -u $RUN_AS_USER \
@@ -48,9 +48,9 @@ case $1 in
         log_end_msg $?
         ;;
     stop)
-        log_daemon_msg "Stopping mysqld_exporter"
+        log_daemon_msg "Stopping mysqld-exporter"
         if [ ! -f "$PIDFILE" ]; then
-            log_failure_msg "$PIDFILE doesn't exist. mysqld_exporter not running?"
+            log_failure_msg "$PIDFILE doesn't exist. mysqld-exporter not running?"
             exit 0
         fi
         start-stop-daemon --stop --retry 30 --quiet --oknodo -u $RUN_AS_USER --pidfile "$PIDFILE" && rm -f "$PIDFILE"
@@ -62,7 +62,7 @@ case $1 in
         $0 stop && $0 start
         ;;
     status)
-        status_of_proc -p $PIDFILE "$DAEMON" "mysqld_exporter"
+        status_of_proc -p $PIDFILE "$DAEMON" "mysqld-exporter"
         exit $?
         ;;
     *)

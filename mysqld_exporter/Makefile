@@ -16,10 +16,10 @@ export DEB_TARGET_ppc64le_ARCH := ppc64el
 export DEB_TARGET_mips64le_ARCH := mips64el
 
 export RPM_TARGET_amd64_ARCH := x86_64
-export DEB_TARGET_arm64_ARCH := arm64
-export DEB_TARGET_armv7_ARCH := armhf
-export DEB_TARGET_ppc64le_ARCH := ppc64el
-export DEB_TARGET_mips64le_ARCH := mips64el
+export RPM_TARGET_arm64_ARCH := aarch64
+export RPM_TARGET_armv7_ARCH := armv7
+export RPM_TARGET_ppc64_ARCH := ppc64
+export RPM_TARGET_ppc64le_ARCH := ppc64le
 
 export GIT_VERSION := \
   $(shell git rev-list --pretty=format:%h HEAD --max-count=1 | sed 1d || echo unknown)
@@ -31,14 +31,18 @@ export GIT_SHORTSHA1 := \
 all: call-deb call-rpm
 
 call-deb: ;
-#	make 'DEB_SRC_ARCH=amd64' -C deb/
-#	make 'DEB_SRC_ARCH=arm64' -C deb/
-#	make 'DEB_SRC_ARCH=armv7' -C deb/
-#	make 'DEB_SRC_ARCH=ppc64le' -C deb/
-#	make 'DEB_SRC_ARCH=mips64le' -C deb/
+	make 'DEB_SRC_ARCH=amd64' -C deb/
+	make 'DEB_SRC_ARCH=arm64' -C deb/
+	make 'DEB_SRC_ARCH=armv7' -C deb/
+	make 'DEB_SRC_ARCH=ppc64le' -C deb/
+	make 'DEB_SRC_ARCH=mips64le' -C deb/
 
 call-rpm:
 	make 'RPM_SRC_ARCH=amd64' -C rpm/
+	make 'RPM_SRC_ARCH=arm64' -C rpm/
+	make 'RPM_SRC_ARCH=armv7' -C rpm/
+	make 'RPM_SRC_ARCH=ppc64' -C rpm/
+	make 'RPM_SRC_ARCH=ppc64le' -C rpm/
 
 lint:
 	make 'DEB_SRC_ARCH=amd64' -C deb/ lint

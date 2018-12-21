@@ -27,10 +27,10 @@ dlsrcpkg:
 deb:
 	mkdir -p dist/
 	mkdir -p build/DEBIAN/
-	mkdir -p build/opt/prometheus/$(SRC_PACKAGE_NAME)/
 	cp -r control/* build/DEBIAN/
-	cp -r etc/ build/
-	cp build-tmp/$(SRC_PKG_BASE_NAME)/$(SRC_PACKAGE_NAME) build/opt/prometheus/$(SRC_PACKAGE_NAME)/
+	cp -r assets/* build/
+	mkdir -p build/opt/prometheus/$(SRC_PACKAGE_NAME)/bin/
+	cp build-tmp/$(SRC_PKG_BASE_NAME)/$(SRC_PACKAGE_NAME) build/opt/prometheus/$(SRC_PACKAGE_NAME)/bin/
 	set -e; { \
 		sed \
 			-e 's/@DEB_PACKAGE_NAME@/$(DEB_PACKAGE_NAME)/' \

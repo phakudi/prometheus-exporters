@@ -1,0 +1,6 @@
+#!/bin/bash
+
+if [ ! -L "/etc/mysqld_exporter" ]
+then
+  ln -s /opt/prometheus/mysqld_exporter/conf /etc/mysqld_exporter
+fi

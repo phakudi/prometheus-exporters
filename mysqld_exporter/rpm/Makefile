@@ -2,7 +2,7 @@
 
 OS := linux
 RPM_BINTRAY_URL := https://dl.bintray.com/apptuitai/rpm/pool/m/$(RPM_PACKAGE_NAME)/
-PKG_BASENAME := $(RPM_PACKAGE_NAME)_$(PACKAGE_VERSION)-$(PACKAGE_REVISION)
+PKG_BASENAME := $(RPM_PACKAGE_NAME)-$(PACKAGE_VERSION)-$(PACKAGE_REVISION)
 RPM_TARGET_ARCH := $(RPM_TARGET_$(RPM_SRC_ARCH)_ARCH)
 RPM := $(PKG_BASENAME).$(RPM_TARGET_ARCH).rpm
 SRC_PKG_BASE_URL := https://github.com/prometheus/$(SRC_PACKAGE_NAME)/releases/download/v$(PACKAGE_VERSION)/
@@ -40,7 +40,8 @@ rpm:
 			-e 's/@RPM_TARGET_ARCH@/$(RPM_TARGET_ARCH)/' \
 		spec/${RPM_PACKAGE_NAME}.spec; \
 	} >build/${RPM_PACKAGE_NAME}-t.spec
-	rpmbuild --define "_topdir %(pwd)/build" -bb build/$(RPM_PACKAGE_NAME)-t.spec
+	rpmbuild --define "_topdir %(pwd)/build" --target ${RPM_TARGET_ARCH} -bb build/$(RPM_PACKAGE_NAME)-t.spec
+	mv build/RPMS/${RPM_TARGET_ARCH}/${RPM} dist/
 
 lint:
 	lintian --no-tag-display-limit dist/$(RPM)

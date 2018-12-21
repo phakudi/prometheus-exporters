@@ -1,0 +1,14 @@
+#!/bin/bash
+
+is_systemd=0
+
+if [ -d /run/systemd/system ]; then
+   is_systemd=1
+fi
+
+if [ $is_systemd -eq 1 ]
+then
+	systemctl stop mysqld-exporter && systemctl disable mysqld-exporter && systemctl daemon-reload
+else
+	/etc/init.d/mysqld-exporter stop && chkconfig --del mysqld-exporter
+fi

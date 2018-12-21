@@ -1,18 +1,18 @@
 #!/bin/bash
 #
-# mysqld_exporter   Startup script for the mysqld_exporter monitoring agent
+# mysqld-exporter   Startup script for the mysqld-exporter monitoring agent
 #
 # chkconfig:   2345 15 85
-# description: mysqld_exporter - Data collection agent for apptuit.ai
-# processname: mysqld_exporter
-# pidfile: /var/run/prometheus/mysqld_exporter/mysqld_exporter.pid
+# description: mysqld-exporter - Data collection agent for apptuit.ai
+# processname: mysqld-exporter
+# pidfile: /var/run/prometheus/mysqld_exporter/mysqld-exporter.pid
 #
 ### BEGIN INIT INFO
-# Provides: mysqld_exporter
+# Provides: mysqld-exporter
 # Required-Start: $local_fs $remote_fs $network $named
 # Required-Stop: $local_fs $remote_fs $network
-# Short-Description: mysqld_exporter - Data collection agent for apptuit.ai
-# Description: mysqld_exporter - Data collection agent for apptuit.ai
+# Short-Description: mysqld-exporter - Data collection agent for apptuit.ai
+# Description: mysqld-exporter - Data collection agent for apptuit.ai
 ### END INIT INFO
 
 # Source function library.
@@ -55,8 +55,8 @@ start() {
   return $RETVAL
 }
 
-# When stopping mysqld_exporter a delay of ~15 seconds before SIGKILLing the
-# process so as to give enough time for mysqld_exporter to SIGKILL any errant
+# When stopping mysqld-exporter a delay of ~15 seconds before SIGKILLing the
+# process so as to give enough time for mysqld-exporter to SIGKILL any errant
 # collectors.
 stop() {
   echo -n $"Stopping $prog: "

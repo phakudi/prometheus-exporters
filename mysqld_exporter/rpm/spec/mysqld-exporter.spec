@@ -4,7 +4,6 @@
 %global mysqld_exporter_dir /opt/prometheus/mysqld_exporter
 %global rootdir       		%{_topdir}/..
 
-BuildArch:      @RPM_TARGET_ARCH@
 Name:           @RPM_PACKAGE_NAME@
 Group:          System/Monitoring
 Version:        @PACKAGE_VERSION@
