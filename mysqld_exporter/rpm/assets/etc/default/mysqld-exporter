@@ -1,0 +1,20 @@
+#!/bin/bash
+
+export DATA_SOURCE_NAME='@MYSQL_USER@:@MYSQL_PASSWORD@@(@MYSQL_HOST@:@MYSQL_PORT@)/'
+
+#
+# Below are the most common flags (and their defaults)
+# an administrator could tweak to customize the exporter
+# to the needs of their environment.
+# Ref:- https://github.com/prometheus/mysqld_exporter#general-flags
+#
+# For a full list of usable flags, please refer to...
+# https://github.com/prometheus/mysqld_exporter#collector-flags
+#
+
+export MYSQLD_EXPORTER_FLAGS=""
+# export MYSQLD_EXPORTER_FLAGS="$MYSQLD_EXPORTER_FLAGS --log.level=info"
+# export MYSQLD_EXPORTER_FLAGS="$MYSQLD_EXPORTER_FLAGS --exporter.lock_wait_timeout=2"
+# export MYSQLD_EXPORTER_FLAGS="$MYSQLD_EXPORTER_FLAGS --exporter.log_slow_filter"
+# export MYSQLD_EXPORTER_FLAGS="$MYSQLD_EXPORTER_FLAGS --web.listen-address=0.0.0.0:9104"
+# export MYSQLD_EXPORTER_FLAGS="$MYSQLD_EXPORTER_FLAGS --web.telemetry-path=/metrics"

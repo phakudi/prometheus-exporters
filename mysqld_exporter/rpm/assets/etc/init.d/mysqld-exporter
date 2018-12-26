@@ -18,8 +18,13 @@
 # Source function library.
 . /etc/init.d/functions
 
+if [ -r /etc/default/mysqld-exporter ]
+then
+	. /etc/default/mysqld-exporter
+fi
+
 THIS_HOST=`hostname`
-MYSQLD_EXPORTER=${MYSQLD_EXPORTER-/opt/prometheus/mysqld_exporter/bin/mysqld_exporter}
+MYSQLD_EXPORTER_BINARY=${MYSQLD_EXPORTER_BINARY-/opt/prometheus/mysqld_exporter/bin/mysqld_exporter}
 PIDFILE=${PIDFILE-/var/run/prometheus/mysqld_exporter/mysqld_exporter.pid}
 LOGFILE=${LOGFILE-/var/log/prometheus/mysqld_exporter/mysqld_exporter.log}
 
@@ -29,10 +34,6 @@ RUN_AS_GROUP=${RUN_AS_GROUP-prometheus}
 prog=mysqld_exporter
 if [ -f /etc/sysconfig/$prog ]; then
   . /etc/sysconfig/$prog
-fi
-
-if [ -z "$OPTIONS" ]; then
-  OPTIONS="${OPTIONS} --config.my-cnf=/etc/mysqld_exporter/my.cnf"
 fi
 
 sanity_check() {
@@ -47,7 +48,7 @@ sanity_check() {
 start() {
   echo -n $"Starting $prog: "
   sanity_check || return $?
-  su - ${RUN_AS_USER} -c "nohup $MYSQLD_EXPORTER $OPTIONS >> $LOGFILE 2>&1 &"
+  su - ${RUN_AS_USER} -c "nohup $MYSQLD_EXPORTER_BINARY $MYSQLD_EXPORTER_FLAGS >> $LOGFILE 2>&1 &"
   echo $(pidof mysqld_exporter) > ${PIDFILE}
   read PID < "${PIDFILE}"
   RETVAL=$?
@@ -61,7 +62,7 @@ start() {
 stop() {
   echo -n $"Stopping $prog: "
   sanity_check || return $?
-  killproc -p $PIDFILE -d 15 $MYSQLD_EXPORTER
+  killproc -p $PIDFILE -d 15 $MYSQLD_EXPORTER_BINARY
   RETVAL=$?
   echo
   return $RETVAL
@@ -72,12 +73,12 @@ case "$1" in
   start) start;;
   stop) stop;;
   status)
-    status -p $PIDFILE $MYSQLD_EXPORTER
+    status -p $PIDFILE $MYSQLD_EXPORTER_BINARY
     RETVAL=$?
     ;;
   restart|force-reload|reload) stop && start;;
   condrestart|try-restart)
-    if status -p $PIDFILE $MYSQLD_EXPORTER >&/dev/null; then
+    if status -p $PIDFILE $MYSQLD_EXPORTER_BINARY >&/dev/null; then
       stop && start
     fi
     ;;

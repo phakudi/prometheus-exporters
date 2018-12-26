@@ -1,6 +1,12 @@
 #!/bin/bash
 
-if [ ! -L "/etc/mysqld_exporter" ]
+is_systemd=0
+
+if [ -d /run/systemd/system ]; then
+   is_systemd=1
+fi
+
+if [ $is_systemd -eq 1 ]
 then
-  ln -s /opt/prometheus/mysqld_exporter/conf /etc/mysqld_exporter
+	systemctl daemon-reload && systemctl enable mysqld-exporter
 fi

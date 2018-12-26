@@ -27,8 +27,8 @@ mkdir -p %{buildroot}/usr/lib/systemd/system/
 mkdir -p %{buildroot}/etc/init.d/
 %{__install} -m 0755 -D %{rootdir}/assets/etc/init.d/mysqld-exporter %{buildroot}/etc/init.d/mysqld-exporter
 
-mkdir -p %{buildroot}/%{mysqld_exporter_dir}/conf/
-%{__install} -m 0644 -D %{rootdir}/assets/opt/mysqld_exporter/conf/my.cnf %{buildroot}/%{mysqld_exporter_dir}/conf/my.cnf
+mkdir -p %{buildroot}/etc/default/
+%{__install} -m 0755 -D %{rootdir}/assets/etc/default/mysqld-exporter %{buildroot}/etc/default/mysqld-exporter
 
 # Install Base files
 mkdir -p %{buildroot}%{mysqld_exporter_dir}/bin/
@@ -39,9 +39,9 @@ mkdir -p %{buildroot}%{mysqld_exporter_dir}/bin/
 
 /usr/lib/systemd/system/mysqld-exporter.service
 %attr(755, -, -) /etc/init.d/mysqld-exporter
+%attr(600, -, -) /etc/default/mysqld-exporter
 %dir %{mysqld_exporter_dir}
 %{mysqld_exporter_dir}/bin/mysqld_exporter
-%{mysqld_exporter_dir}/conf/my.cnf
 
 
 %pre
@@ -67,11 +67,6 @@ is_systemd=0
 
 if [ -d /run/systemd/system ]; then
    is_systemd=1
-fi
-
-if [ ! -L "/etc/mysqld_exporter" ]
-then
-  ln -s %{mysqld_exporter_dir}/conf /etc/mysqld_exporter
 fi
 
 PROMETHEUS_USER="prometheus"
@@ -133,5 +128,4 @@ if [ $1 -eq 0 ] ; then
 
     # Clean up collectors
     rm -f /etc/init.d/mysqld-exporter
-    rm -f /etc/mysqld_exporter
 fi

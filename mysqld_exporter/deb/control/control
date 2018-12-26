@@ -8,5 +8,5 @@ Depends: adduser, lsb-base
 Provides: @DEB_PACKAGE_NAME@
 Section: utils
 Priority: optional
-Homepage: https://apptuit.ai/promex.html
+Homepage: https://github.com/ApptuitAI/prometheus-exporters/tree/master/mysqld_exporter
 Description: Prometheus MySQL metrics exporter for apptuit.ai

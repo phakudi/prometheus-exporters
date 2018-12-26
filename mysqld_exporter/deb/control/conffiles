@@ -1,2 +1,2 @@
 /etc/init.d/mysqld-exporter
-/opt/prometheus/mysqld_exporter/conf/my.cnf
+/etc/default/mysqld-exporter

@@ -17,6 +17,20 @@ post_complete $PACKAGE_NAME
 case $OS in
     RedHat)
         install_redhat $PACKAGE_NAME
+        echo -n "MySQL IP [localhost] : "
+        read mysql_host
+        mysql_host=${mysql_host:-${DEFAULT_MYSQL_HOST}}
+        echo -n "MySQL Port [3306] : "
+        read mysql_port
+        mysql_port=${mysql_port:-${DEFAULT_MYSQL_PORT}}
+        echo -n "MySQL User [root] : "
+        read mysql_user
+        mysql_user=${mysql_user:-${DEFAULT_MYSQL_USER}}
+        echo -n "MySQL Password [] : "
+        read -s mysql_password
+        sed -e "s/@MYSQL_HOST@/$mysql_host/" -e "s/@MYSQL_PORT@/${mysql_port}/" -e "s/@MYSQL_USER@/${mysql_user}/" -e "s/@MYSQL_PASSWORD@/${mysql_password}/" -i /etc/default/mysqld_exporter
+
+        service mysqld-exporter start
         ;;
 
     Debian)
@@ -32,7 +46,8 @@ case $OS in
         mysql_user=${mysql_user:-${DEFAULT_MYSQL_USER}}
         echo -n "MySQL Password [] : "
         read -s mysql_password
-        sed -e "s/@MYSQL_HOST@/$mysql_host/" -e "s/@MYSQL_PORT@/${mysql_port}/" -e "s/@MYSQL_USER@/${mysql_user}/" -e "s/@MYSQL_PASSWORD@/${mysql_password}/" -i /etc/mysqld_exporter/my.cnf
+        sed -e "s/@MYSQL_HOST@/$mysql_host/" -e "s/@MYSQL_PORT@/${mysql_port}/" -e "s/@MYSQL_USER@/${mysql_user}/" -e "s/@MYSQL_PASSWORD@/${mysql_password}/" -i /etc/default/mysqld_exporter
+        service mysqld-exporter start
         ;;
 
     *)
