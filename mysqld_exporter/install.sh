@@ -10,7 +10,7 @@ DEFAULT_MYSQL_PORT='3306'
 DEFAULT_MYSQL_USER='apptuit'
 
 function localize_exporter_config() {
-	echo "The install script will now setup a new user (apptuit) on your MySQL instance for metrics collection"
+	print_message "info" "The install script will now setup a new user (apptuit) on your MySQL instance for metrics collection"
 	echo -n "MySQL IP [localhost] : "
 	read mysql_host
 	mysql_host=${mysql_host:-${DEFAULT_MYSQL_HOST}}
@@ -29,7 +29,7 @@ function localize_exporter_config() {
 	mysql -u root -p${mysql_root_password} mysql -e "GRANT PROCESS ON *.* TO '${mysql_user}'@'localhost';"
 	mysql -u root -p${mysql_root_password} mysql -e "GRANT SELECT ON performance_schema.* TO '${mysql_user}'@'localhost';"
 	mysql -u root -p${mysql_root_password} mysql -e "GRANT REPLICATION CLIENT ON *.* to '${mysql_user}'@'localhost';"
-	echo "Done"
+	print_message "success" "Done"
 	sed -e "s/@MYSQL_HOST@/${mysql_host}/" -e "s/@MYSQL_PORT@/${mysql_port}/" -e "s/@MYSQL_USER@/${mysql_user}/" -e "s/@MYSQL_PASSWORD@/${mysql_user_password}/" -i /etc/default/mysqld-exporter
 }
 

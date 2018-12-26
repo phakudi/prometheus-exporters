@@ -1,7 +1,6 @@
 #!/bin/bash
 
 BINTRAY_REPO_COMPANY=phakudiapptuittestorg
-#BINTRAY_REPO_COMPANY=apptuitai
 
 function check_root() {
 	if [ "$EUID" -ne 0 ]
@@ -103,13 +102,6 @@ function start_service () {
         restart_cmd="$sudo_cmd service $1 restart"
     elif [ $(command -v invoke-rc.d) ]; then
         restart_cmd="$sudo_cmd invoke-rc.d $1 restart"
-    fi
-
-    if $($1_install_only); then
-       print_message  "warn" "$1_INSTALL_ONLY environment variable set: $1 will not be started.
-You can start it manually using the following command:\n\n\t$restart_cmd\n\n"
-        post_complete $1
-        exit
     fi
 
     print_message "Starting $1\n"
