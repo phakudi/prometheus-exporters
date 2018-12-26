@@ -1,5 +1,5 @@
 
-DATA_SOURCE_NAME="@MYSQL_USER@:@MYSQL_PASSWORD@@(@MYSQL_HOST@:@MYSQL_PORT@)/"
+export DATA_SOURCE_NAME="@MYSQL_USER@:@MYSQL_PASSWORD@@(@MYSQL_HOST@:@MYSQL_PORT@)/"
 
 #
 # Below are the most common flags (and their defaults)
@@ -11,7 +11,7 @@ DATA_SOURCE_NAME="@MYSQL_USER@:@MYSQL_PASSWORD@@(@MYSQL_HOST@:@MYSQL_PORT@)/"
 # https://github.com/prometheus/mysqld_exporter#collector-flags
 #
 
-MYSQLD_EXPORTER_FLAGS=""
+export MYSQLD_EXPORTER_FLAGS=""
 
 # --log.level=info - Logging verbosity. Possible values are debug / info / warn / error / fatal.
 # --exporter.lock_wait_timeout=2 - Set a lock_wait_timeout on the connection to avoid long metadata locking

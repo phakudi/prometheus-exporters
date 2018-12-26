@@ -47,7 +47,7 @@ case $1 in
         start-stop-daemon --start --quiet -u $RUN_AS_USER \
             --pidfile "$PIDFILE" --chuid $RUN_AS_USER:$RUN_AS_GROUP \
             --background --make-pidfile --startas $MYSQLD_EXPORTER_BINARY -- \
-            $MYSQLD_EXPORTER_FLAGS"
+            $MYSQLD_EXPORTER_FLAGS
 
         log_end_msg $?
         ;;

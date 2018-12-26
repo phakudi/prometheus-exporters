@@ -87,9 +87,6 @@ fi
 
 chown -R $PROMETHEUS_USER.$PROMETHEUS_GROUP /opt/prometheus/mysqld_exporter
 
-mkdir -p /var/run/prometheus/mysqld_exporter
-chown -R $PROMETHEUS_USER.$PROMETHEUS_GROUP /var/run/prometheus/mysqld_exporter
-
 mkdir -p /var/log/prometheus/mysqld_exporter
 chown -R $PROMETHEUS_USER.$PROMETHEUS_GROUP /var/log/prometheus/mysqld_exporter
 

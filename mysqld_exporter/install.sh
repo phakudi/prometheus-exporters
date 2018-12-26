@@ -28,7 +28,7 @@ case $OS in
         mysql_user=${mysql_user:-${DEFAULT_MYSQL_USER}}
         echo -n "MySQL Password [] : "
         read -s mysql_password
-        sed -e "s/@MYSQL_HOST@/$mysql_host/" -e "s/@MYSQL_PORT@/${mysql_port}/" -e "s/@MYSQL_USER@/${mysql_user}/" -e "s/@MYSQL_PASSWORD@/${mysql_password}/" -i /etc/default/mysqld_exporter
+        sed -e "s/@MYSQL_HOST@/$mysql_host/" -e "s/@MYSQL_PORT@/${mysql_port}/" -e "s/@MYSQL_USER@/${mysql_user}/" -e "s/@MYSQL_PASSWORD@/${mysql_password}/" -i /etc/default/mysqld-exporter
 
         service mysqld-exporter start
         ;;
@@ -46,7 +46,7 @@ case $OS in
         mysql_user=${mysql_user:-${DEFAULT_MYSQL_USER}}
         echo -n "MySQL Password [] : "
         read -s mysql_password
-        sed -e "s/@MYSQL_HOST@/$mysql_host/" -e "s/@MYSQL_PORT@/${mysql_port}/" -e "s/@MYSQL_USER@/${mysql_user}/" -e "s/@MYSQL_PASSWORD@/${mysql_password}/" -i /etc/default/mysqld_exporter
+        sed -e "s/@MYSQL_HOST@/$mysql_host/" -e "s/@MYSQL_PORT@/${mysql_port}/" -e "s/@MYSQL_USER@/${mysql_user}/" -e "s/@MYSQL_PASSWORD@/${mysql_password}/" -i /etc/default/mysqld-exporter
         service mysqld-exporter start
         ;;
 
