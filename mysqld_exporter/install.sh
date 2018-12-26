@@ -10,7 +10,7 @@ DEFAULT_MYSQL_PORT='3306'
 DEFAULT_MYSQL_USER='apptuit'
 
 function localize_exporter_config() {
-	print_message "info" "The install script will now setup a new user (apptuit) on your MySQL instance for metrics collection"
+	print_message "info" "The install script will now setup a new user (apptuit) on your MySQL instance for metrics collection\n"
 	echo -n "MySQL IP [localhost] : "
 	read mysql_host
 	mysql_host=${mysql_host:-${DEFAULT_MYSQL_HOST}}
@@ -19,11 +19,13 @@ function localize_exporter_config() {
 	mysql_port=${mysql_port:-${DEFAULT_MYSQL_PORT}}
 	echo -n "Password for MySQL 'root' User : "
 	read -s mysql_root_password
+	echo ""
 	echo -n "User for metrics collection [apptuit] : "
 	read mysql_user
 	mysql_user=${mysql_user:-${DEFAULT_MYSQL_USER}}
 	echo -n "Setup password for '${mysql_user}' User : "
 	read -s mysql_user_password
+	echo ""
 	echo -n "Creating MySQL user '${mysql_user}' and granting needed permissions..."
 	mysql -u root -p${mysql_root_password} mysql -e "CREATE USER '${mysql_user}'@'localhost' IDENTIFIED BY '${mysql_user_password}';"
 	mysql -u root -p${mysql_root_password} mysql -e "GRANT PROCESS ON *.* TO '${mysql_user}'@'localhost';"
