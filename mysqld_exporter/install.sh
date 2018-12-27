@@ -1,8 +1,8 @@
 #!/bin/bash
 
-if [ -r ../common.sh ]
+if [ -r ../common.sh ]; then
 	. ../common.sh
-elif
+else
 	curl=$(which curl)
 	r=$?
 	if [ $r == 0 ]; then
