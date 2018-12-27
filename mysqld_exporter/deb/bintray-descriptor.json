@@ -6,10 +6,10 @@
   },
 
   "version": {
-    "name": "@PACKAGE_VERSION@",
-    "desc": "Version @PACKAGE_VERSION@",
+    "name": "@PACKAGE_VERSION@-@PACKAGE_REVISION@",
+    "desc": "Version @PACKAGE_VERSION@-@PACKAGE_REVISION@",
     "released": "@PACKAGE_DATE@",
-    "vcs_tag": "mysqld_exporter-v@PACKAGE_VERSION@"
+    "vcs_tag": "mysqld_exporter-v@PACKAGE_VERSION@-@PACKAGE_REVISION@"
   },
 
   "files":
