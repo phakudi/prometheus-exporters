@@ -1,6 +1,24 @@
 #!/bin/bash
 
-. ../common.sh
+if [ -r ../common.sh ]
+	. ../common.sh
+elif
+	curl=$(which curl)
+	r=$?
+	if [ $r == 0 ]; then
+		$curl -o /tmp/common.sh https://github.com/phakudi/prometheus-exporters/blob/master/common.sh
+	else
+		wget=$(which wget)
+		r=$?
+		if [ $r == 0 ]; then
+			$wget -O /tmp/common.sh https://github.com/phakudi/prometheus-exporters/blob/master/common.sh
+		else
+			echo "Neither 'curl' nor 'wget' found. Please install at least one of these packages for install to proceed."
+			exit 1
+		fi
+	fi
+	. /tmp/common.sh
+fi
 
 PACKAGE_NAME='mysqld-exporter'
 OS=$(get_os)
