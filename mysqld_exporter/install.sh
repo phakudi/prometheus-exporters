@@ -13,7 +13,7 @@ else
 		if [ $r == 0 ]; then
 			$wget -O /tmp/common.sh https://raw.githubusercontent.com/phakudi/prometheus-exporters/master/common.sh
 		else
-			echo "Neither 'curl' nor 'wget' found. Please install at least one of these packages for install to proceed."
+			echo "Neither 'curl' nor 'wget' found. Please install at least one of these packages."
 			exit 1
 		fi
 	fi
