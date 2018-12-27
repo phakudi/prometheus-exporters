@@ -21,4 +21,4 @@ Type=simple
 WorkingDirectory=/opt/prometheus/mysqld_exporter/
 
 EnvironmentFile=/etc/default/mysqld-exporter
-ExecStart=/opt/prometheus/mysqld_exporter/bin/mysqld_exporter ${MYSQLD_EXPORTER_FLAGS}
+ExecStart=/opt/prometheus/mysqld_exporter/bin/mysqld_exporter $MYSQLD_EXPORTER_FLAGS
