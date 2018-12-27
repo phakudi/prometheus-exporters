@@ -33,6 +33,10 @@ deb:
 	cp build-tmp/$(SRC_PKG_BASE_NAME)/$(SRC_PACKAGE_NAME) build/opt/prometheus/$(SRC_PACKAGE_NAME)/bin/
 	set -e; { \
 		sed \
+			-e 's/@GIT_VERSION@/$(GIT_VERSION)/' \
+			-e 's/@GIT_FULLSHA1@/$(GIT_FULLSHA1)/' \
+			-e 's/@GIT_SHORTSHA1@/$(GIT_SHORTSHA1)/' \
+			-e 's/@SRC_PKG_BASE_NAME@/$(SRC_PKG_BASE_NAME)/' \
 			-e 's/@DEB_PACKAGE_NAME@/$(DEB_PACKAGE_NAME)/' \
 			-e 's/@PACKAGE_VERSION@/$(PACKAGE_VERSION)/' \
 			-e 's/@PACKAGE_REVISION@/$(PACKAGE_REVISION)/' \
