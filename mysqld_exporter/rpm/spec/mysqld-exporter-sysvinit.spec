@@ -22,10 +22,10 @@ Prometheus MySQL collector packaged as RPM that pushes metrics to Apptuit.AI
 %install
 
 mkdir -p %{buildroot}/etc/init.d/
-%{__install} -m 0755 -D %{rootdir}/assets/etc/init.d/mysqld-exporter %{buildroot}/etc/init.d/mysqld-exporter
+%{__install} -m 0755 -D %{rootdir}/assets/sysvinit/etc/init.d/mysqld-exporter %{buildroot}/etc/init.d/mysqld-exporter
 
 mkdir -p %{buildroot}/etc/default/
-%{__install} -m 0755 -D %{rootdir}/assets/etc/default/mysqld-exporter %{buildroot}/etc/default/mysqld-exporter
+%{__install} -m 0755 -D %{rootdir}/assets/sysvinit/etc/default/mysqld-exporter %{buildroot}/etc/default/mysqld-exporter
 
 # Install Base files
 mkdir -p %{buildroot}%{mysqld_exporter_dir}/bin/
