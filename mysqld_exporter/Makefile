@@ -49,3 +49,5 @@ lint:
 	make 'DEB_SRC_ARCH=armv7' -C deb/ lint
 	make 'DEB_SRC_ARCH=ppc64le' -C deb/ lint
 	make 'DEB_SRC_ARCH=mips64le' -C deb/ lint
+
+.PHONY: all deb rpm lint
