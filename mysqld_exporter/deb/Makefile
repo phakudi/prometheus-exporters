@@ -24,11 +24,13 @@ dlsrcpkg:
 	mkdir -p build-tmp/
 	cd build-tmp/ && curl -L -O $(SRC_PKG_URL) && tar -zxvf $(SRC_PKG_FILE_NAME) && cd ..
 
-deb:
+deb: clean mkdeb
+
+mkdeb:
 	mkdir -p dist/
 	mkdir -p build/DEBIAN/
 	cp -r control/* build/DEBIAN/
-	cp -r assets/* build/
+	cp -r assets/$SYSTEMD_OR_SYSVINIT/* build/
 	mkdir -p build/opt/prometheus/$(SRC_PACKAGE_NAME)/bin/
 	cp build-tmp/$(SRC_PKG_BASE_NAME)/$(SRC_PACKAGE_NAME) build/opt/prometheus/$(SRC_PACKAGE_NAME)/bin/
 	set -e; { \

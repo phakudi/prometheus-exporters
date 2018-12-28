@@ -1,5 +1,16 @@
 language: generic
 
+matrix:
+  include:
+    - name: "RPM Builds for SYSVINIT"
+      env: PACKAGE_SYSTEM=rpm SYSTEMD_OR_SYSVINIT=sysvinit
+    - name: "RPM Builds for SYSTEMD"
+      env: PACKAGE_SYSTEM=rpm SYSTEMD_OR_SYSVINIT=systemd
+    - name: "DEB Builds for SYSVINIT"
+      env: PACKAGE_SYSTEM=deb SYSTEMD_OR_SYSVINIT=sysvinit
+    - name: "DEB Builds for SYSTEMD"
+      env: PACKAGE_SYSTEM=deb SYSTEMD_OR_SYSVINIT=systemd
+
 install:
   - sudo apt-get -qq update
   - sudo apt-get install -y rpm python-rpm
@@ -15,9 +26,11 @@ before_script:
   - echo $PACKAGE_MODULE
   - echo $PACKAGE_VERSION
   - echo $PACKAGE_REVISION
+  - echo $PACKAGE_SYSTEM
+  - echo $SYSTEMD_OR_SYSVINIT
 
 script:
-  - make -C $PACKAGE_MODULE
+  - make -C $PACKAGE_MODULE $PACKAGE_SYSTEM
 
 after_success:
   - make lint -C $PACKAGE_MODULE
@@ -25,8 +38,8 @@ after_success:
 before_deploy:
   - PACKAGE_DATE=$(git log -1 --pretty="format:%ad" $TRAVIS_TAG --date=short);
   - echo $PACKAGE_DATE;
-  - sed -e "s/@PACKAGE_DATE@/$PACKAGE_DATE/" -e "s/@PACKAGE_VERSION@/$PACKAGE_VERSION/" -e "s/@PACKAGE_REVISION@/$PACKAGE_REVISION/" -i $PACKAGE_MODULE/deb/bintray-descriptor.json;
-  - sed -e "s/@PACKAGE_DATE@/$PACKAGE_DATE/" -e "s/@PACKAGE_VERSION@/$PACKAGE_VERSION/" -e "s/@PACKAGE_REVISION@/$PACKAGE_REVISION/" -i $PACKAGE_MODULE/rpm/bintray-descriptor.json;
+  - sed -e "s/@PACKAGE_DATE@/$PACKAGE_DATE/" -e "s/@PACKAGE_VERSION@/$PACKAGE_VERSION/" -e "s/@PACKAGE_REVISION@/$PACKAGE_REVISION/" -i $PACKAGE_MODULE/$PACKAGE_SYSTEM/$SYSTEMD_OR_SYSVINIT-bintray-descriptor.json;
+  - sed -e "s/@PACKAGE_DATE@/$PACKAGE_DATE/" -e "s/@PACKAGE_VERSION@/$PACKAGE_VERSION/" -e "s/@PACKAGE_REVISION@/$PACKAGE_REVISION/" -i $PACKAGE_MODULE/$PACKAGE_SYSTEM/$SYSTEMD_OR_SYSVINIT-bintray-descriptor.json;
 
 deploy:
   - provider: bintray

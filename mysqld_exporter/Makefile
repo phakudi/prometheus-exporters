@@ -27,16 +27,16 @@ export GIT_FULLSHA1 := \
 export GIT_SHORTSHA1 := \
   $(shell git rev-list --pretty=format:%h HEAD --max-count=1 | sed 1d || echo unknown)
 
-all: call-deb call-rpm
+all: deb rpm
 
-call-deb: ;
+deb:
 	make 'DEB_SRC_ARCH=amd64' -C deb/
 	make 'DEB_SRC_ARCH=arm64' -C deb/
 	make 'DEB_SRC_ARCH=armv7' -C deb/
 	make 'DEB_SRC_ARCH=ppc64le' -C deb/
 	make 'DEB_SRC_ARCH=mips64le' -C deb/
 
-call-rpm:
+rpm:
 	make 'RPM_SRC_ARCH=amd64' -C rpm/
 	make 'RPM_SRC_ARCH=arm64' -C rpm/
 	make 'RPM_SRC_ARCH=armv7' -C rpm/
