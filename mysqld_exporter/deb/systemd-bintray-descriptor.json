@@ -15,7 +15,7 @@
   "files":
   [
     {
-      "includePattern": "mysqld_exporter/deb/dist/(.*\\.deb)", "uploadPattern": "/pool/m/mysqld-exporter/$1",
+      "includePattern": "mysqld_exporter/@PACKAGE_TYPE@/dist/(.*\\.deb)", "uploadPattern": "/pool/m/mysqld-exporter/@INIT_SYSTEM@/$1",
       "matrixParams": {
         "deb_distribution": "stable,bionic,xenial,jessie,stretch",
         "deb_component": "mysqld-exporter,main",

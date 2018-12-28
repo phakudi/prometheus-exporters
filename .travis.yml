@@ -3,13 +3,13 @@ language: generic
 matrix:
   include:
     - name: "RPM Builds for SYSVINIT"
-      env: PACKAGE_TYPE=rpm SYSTEMD_OR_SYSVINIT=sysvinit
+      env: PACKAGE_TYPE=rpm INIT_SYSTEM=sysvinit
     - name: "RPM Builds for SYSTEMD"
-      env: PACKAGE_TYPE=rpm SYSTEMD_OR_SYSVINIT=systemd
+      env: PACKAGE_TYPE=rpm INIT_SYSTEM=systemd
     - name: "DEB Builds for SYSVINIT"
-      env: PACKAGE_TYPE=deb SYSTEMD_OR_SYSVINIT=sysvinit
+      env: PACKAGE_TYPE=deb INIT_SYSTEM=sysvinit
     - name: "DEB Builds for SYSTEMD"
-      env: PACKAGE_TYPE=deb SYSTEMD_OR_SYSVINIT=systemd
+      env: PACKAGE_TYPE=deb INIT_SYSTEM=systemd
 
 install:
   - sudo apt-get -qq update
@@ -27,7 +27,7 @@ before_script:
   - echo $PACKAGE_VERSION
   - echo $PACKAGE_REVISION
   - echo $PACKAGE_TYPE
-  - echo $SYSTEMD_OR_SYSVINIT
+  - echo $INIT_SYSTEM
 
 script:
   - make -C $PACKAGE_MODULE $PACKAGE_TYPE
@@ -38,15 +38,15 @@ after_success:
 before_deploy:
   - PACKAGE_DATE=$(git log -1 --pretty="format:%ad" $TRAVIS_TAG --date=short);
   - echo $PACKAGE_DATE;
-  - sed -e "s/@PACKAGE_DATE@/$PACKAGE_DATE/" -e "s/@PACKAGE_VERSION@/$PACKAGE_VERSION/" -e "s/@PACKAGE_REVISION@/$PACKAGE_REVISION/" -i $PACKAGE_MODULE/$PACKAGE_TYPE/$SYSTEMD_OR_SYSVINIT-bintray-descriptor.json;
-  - sed -e "s/@PACKAGE_DATE@/$PACKAGE_DATE/" -e "s/@PACKAGE_VERSION@/$PACKAGE_VERSION/" -e "s/@PACKAGE_REVISION@/$PACKAGE_REVISION/" -i $PACKAGE_MODULE/$PACKAGE_TYPE/$SYSTEMD_OR_SYSVINIT-bintray-descriptor.json;
+  - sed -e "s/@PACKAGE_DATE@/$PACKAGE_DATE/" -e "s/@PACKAGE_VERSION@/$PACKAGE_VERSION/" -e "s/@PACKAGE_REVISION@/$PACKAGE_REVISION/" -e "s/@PACKAGE_TYPE@/$PACKAGE_TYPE/" -e "s/@INIT_SYSTEM@/$INIT_SYSTEM/" -i $PACKAGE_MODULE/$PACKAGE_TYPE/$INIT_SYSTEM-bintray-descriptor.json;
+  - sed -e "s/@PACKAGE_DATE@/$PACKAGE_DATE/" -e "s/@PACKAGE_VERSION@/$PACKAGE_VERSION/" -e "s/@PACKAGE_REVISION@/$PACKAGE_REVISION/" -e "s/@PACKAGE_TYPE@/$PACKAGE_TYPE/" -e "s/@INIT_SYSTEM@/$INIT_SYSTEM/" -i $PACKAGE_MODULE/$PACKAGE_TYPE/$INIT_SYSTEM-bintray-descriptor.json;
 
 deploy:
   - provider: bintray
     skip_cleanup: true
-    file: "$PACKAGE_MODULE/$PACKAGE_TYPE/$SYSTEMD_OR_SYSVINIT-bintray-descriptor.json"
+    file: "$PACKAGE_MODULE/$PACKAGE_TYPE/$INIT_SYSTEM-bintray-descriptor.json"
     user: "$BINTRAY_USER"
     key: "$BINTRAY_API_KEY"
     on:
       tags: true
-      condition: $PACKAGE_MODULE != "" && $PACKAGE_VERSION != "" && $BINTRAY_API_KEY != "" && $PACKAGE_TYPE != "" && $SYSTEMD_OR_SYSVINIT != ""
+      condition: $PACKAGE_MODULE != "" && $PACKAGE_VERSION != "" && $BINTRAY_API_KEY != "" && $PACKAGE_TYPE != "" && $INIT_SYSTEM != ""
