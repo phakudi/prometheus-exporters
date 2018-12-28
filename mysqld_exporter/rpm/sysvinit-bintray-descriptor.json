@@ -1,0 +1,22 @@
+{
+  "package": {
+    "name": "mysqld-exporter",
+    "repo": "rpm",
+    "subject": "phakudiapptuittestorg"
+  },
+
+  "version": {
+    "name": "@PACKAGE_VERSION@-@PACKAGE_REVISION@",
+    "desc": "Version @PACKAGE_VERSION@-@PACKAGE_REVISION@",
+    "released": "@PACKAGE_DATE@",
+    "vcs_tag": "mysqld_exporter-v@PACKAGE_VERSION@-@PACKAGE_REVISION@"
+  },
+
+  "files":
+  [
+    {
+      "includePattern": "@PACKAGE_MODULE@/@INIT_SYSTEM@/dist/(.*\\.rpm)", "uploadPattern": "/pool/m/mysqld-exporter/@INIT_SYSTEM@/$1"
+    }
+  ],
+  "publish": true
+}

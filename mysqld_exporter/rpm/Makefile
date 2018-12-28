@@ -38,9 +38,9 @@ rpm:
 			-e 's/@PACKAGE_REVISION@/$(PACKAGE_REVISION)/' \
 			-e 's/@PACKAGE_LICENSE@/$(PACKAGE_LICENSE)/' \
 			-e 's/@RPM_TARGET_ARCH@/$(RPM_TARGET_ARCH)/' \
-		spec/${RPM_PACKAGE_NAME}.spec; \
-	} >build/${RPM_PACKAGE_NAME}-t.spec
-	rpmbuild --define "_topdir %(pwd)/build" --target ${RPM_TARGET_ARCH} -bb build/$(RPM_PACKAGE_NAME)-t.spec
+		spec/${RPM_PACKAGE_NAME}-${INIT_SYSTEM}.spec; \
+	} >build/${RPM_PACKAGE_NAME}-${INIT_SYSTEM}-t.spec
+	rpmbuild --define "_topdir %(pwd)/build" --target ${RPM_TARGET_ARCH} -bb build/$(RPM_PACKAGE_NAME)-${INIT_SYSTEM}-t.spec
 	mv build/RPMS/${RPM_TARGET_ARCH}/${RPM} dist/
 
 lint:

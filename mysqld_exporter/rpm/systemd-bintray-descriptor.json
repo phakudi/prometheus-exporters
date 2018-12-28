@@ -15,13 +15,7 @@
   "files":
   [
     {
-      "includePattern": "mysqld_exporter/rpm/dist/(.*\\.rpm)", "uploadPattern": "/pool/m/mysqld-exporter/$1",
-      "matrixParams": {
-        "deb_distribution": "stable,bionic,xenial,trusty,jessie,stretch",
-        "deb_component": "mysqld-exporter,main",
-        "deb_architecture": "amd64,armhf,arm64,armel,ppc64el,mips64el",
-        "override": 1
-      }
+      "includePattern": "@PACKAGE_MODULE@/@INIT_SYSTEM@/dist/(.*\\.rpm)", "uploadPattern": "/pool/m/mysqld-exporter/@INIT_SYSTEM@/$1"
     }
   ],
   "publish": true
