@@ -48,7 +48,7 @@ sanity_check() {
 start() {
   echo -n $"Starting $prog: "
   sanity_check || return $?
-  su - ${RUN_AS_USER} -c "DATA_SOURCE_NAME=\"$DATA_SOURCE_NAME\" MYSQLD_EXPORTER_FLAGS=\"$MYSQLD_EXPORTER_FLAGS\" nohup $MYSQLD_EXPORTER_BINARY $MYSQLD_EXPORTER_FLAGS >> $LOGFILE 2>&1 &"
+  su - ${RUN_AS_USER} -s /bin/bash -c "DATA_SOURCE_NAME=\"$DATA_SOURCE_NAME\" MYSQLD_EXPORTER_FLAGS=\"$MYSQLD_EXPORTER_FLAGS\" nohup $MYSQLD_EXPORTER_BINARY $MYSQLD_EXPORTER_FLAGS >> $LOGFILE 2>&1 &"
   echo $(pidof mysqld_exporter) > ${PIDFILE}
   read PID < "${PIDFILE}"
   RETVAL=$?
