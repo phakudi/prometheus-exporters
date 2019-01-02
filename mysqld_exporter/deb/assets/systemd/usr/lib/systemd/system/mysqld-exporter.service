@@ -13,6 +13,7 @@ After=mysql.service
 WantedBy=multi-user.target
 
 [Service]
+PermissionsStartOnly=true
 User=prometheus
 Group=prometheus
 
