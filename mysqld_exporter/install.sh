@@ -97,6 +97,17 @@ function localize_exporter_config() {
 	fi
 	print_message "info" "Updating exporter configuration..."
 	sed -e "s/@MYSQL_HOST@/${mysql_host}/" -e "s/@MYSQL_PORT@/${mysql_port}/" -e "s/@MYSQL_USER@/${mysql_user}/" -e "s/@MYSQL_PASSWORD@/${mysql_user_password}/" -i /etc/default/mysqld-exporter
+	is_systemd=0
+
+	if [ -d /run/systemd/system ]; then
+	   is_systemd=1
+	fi
+
+	if [ $is_systemd -eq 1 ]; then
+		sed -e "s/@MYSQL_HOST@/${mysql_host}/" -e "s/@MYSQL_PORT@/${mysql_port}/" -e "s/@MYSQL_USER@/${mysql_user}/" -e "s/@MYSQL_PASSWORD@/${mysql_user_password}/" -i /usr/lib/systemd/system/mysqld-exporter.service
+		systemctl daemon-reload
+	fi
+
 	print_message "info" "DONE\n"
 }
 
