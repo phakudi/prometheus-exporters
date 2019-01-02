@@ -1,0 +1,37 @@
+#
+# systemd service file for forking Prom MySQL Exporter data collector for Apptuit.ai
+#
+
+[Unit]
+Description=Prometheus MySQL Metrics Exporter
+Documentation=http://apptuit.ai/promex.html
+After=network.target
+After=syslog.target
+After=mysql.service
+
+[Install]
+WantedBy=multi-user.target
+
+[Service]
+PermissionsStartOnly=true
+User=prometheus
+Group=prometheus
+
+Type=simple
+
+WorkingDirectory=/opt/prometheus/mysqld_exporter/
+
+#
+# You could add one or more of the following commonly used flags to MYSQLD_EXPORTER_FLAGS environment variable below.
+# You can find a detailed list of all possible flags here... https://github.com/prometheus/mysqld_exporter#collector-flags
+#
+# --log.level=info - Logging verbosity. Possible values are debug / info / warn / error / fatal.
+# --exporter.lock_wait_timeout=2 - Set a lock_wait_timeout on the connection to avoid long metadata locking
+# --exporter.log_slow_filter - Add a log_slow_filter to avoid slow query logging of scrapes
+# --web.listen-address=0.0.0.0:9104 - Address to listen on for web interface and telemetry
+# --web.telemetry-path=/metrics - Path under which to expose metrics
+#
+
+ExecStartPre=/bin/sh -c "/bin/systemctl set-environment DATA_SOURCE_NAME=\"@MYSQL_USER@:@MYSQL_PASSWORD@@(@MYSQL_HOST@:@MYSQL_PORT@)/\" MYSQLD_EXPORTER_FLAGS=\"\""
+
+ExecStart=/opt/prometheus/mysqld_exporter/bin/mysqld_exporter $MYSQLD_EXPORTER_FLAGS

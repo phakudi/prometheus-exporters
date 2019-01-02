@@ -30,7 +30,7 @@ mkdeb:
 	mkdir -p dist/
 	mkdir -p build/DEBIAN/
 	cp -r control/* build/DEBIAN/
-	cp -r assets/$(INIT_SYSTEM)/* build/
+	cp -r assets/* build/
 	mkdir -p build/opt/prometheus/$(SRC_PACKAGE_NAME)/bin/
 	cp build-tmp/$(SRC_PKG_BASE_NAME)/$(SRC_PACKAGE_NAME) build/opt/prometheus/$(SRC_PACKAGE_NAME)/bin/
 	set -e; { \
