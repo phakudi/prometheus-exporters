@@ -15,7 +15,7 @@
   "files":
   [
     {
-      "includePattern": "@PACKAGE_MODULE@/@PACKAGE_TYPE@/dist/(.*\\.rpm)", "uploadPattern": "/pool/m/mysqld-exporter/@INIT_SYSTEM@/$1"
+      "includePattern": "@PACKAGE_MODULE@/@PACKAGE_TYPE@/dist/(.*\\.rpm)", "uploadPattern": "/pool/m/mysqld-exporter/$1"
     }
   ],
   "publish": true
