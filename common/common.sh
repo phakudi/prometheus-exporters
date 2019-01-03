@@ -1,6 +1,6 @@
 #!/bin/bash
 
-BINTRAY_REPO_COMPANY=phakudiapptuittestorg
+BINTRAY_REPO_COMPANY=phakudicompany
 
 function check_root() {
 	if [ "$EUID" -ne 0 ]
