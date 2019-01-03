@@ -1,5 +1,6 @@
 # Makefile for building linux packages for mysqld_exporter
 
+export PACKAGE_DESCRIPTION := Prometheus MySQL metrics exporter for apptuit.ai
 
 export SRC_PACKAGE_NAME := ${PACKAGE_MODULE}
 

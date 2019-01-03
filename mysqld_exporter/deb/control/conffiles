@@ -1,1 +1,2 @@
 /etc/default/mysqld-exporter
+/usr/lib/systemd/system/mysqld-exporter.service

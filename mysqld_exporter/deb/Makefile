@@ -46,6 +46,24 @@ mkdeb:
 			-e 's/@DEB_TARGET_ARCH@/$(DEB_TARGET_ARCH)/' \
 		control/control; \
 	} >build/DEBIAN/control
+	set -e; { \
+		sed \
+			-e 's/@GIT_VERSION@/$(GIT_VERSION)/g' \
+			-e 's/@GIT_FULLSHA1@/$(GIT_FULLSHA1)/g' \
+			-e 's/@GIT_SHORTSHA1@/$(GIT_SHORTSHA1)/g' \
+			-e 's/@SRC_PKG_BASE_NAME@/$(SRC_PKG_BASE_NAME)/g' \
+			-e 's/@SRC_PACKAGE_NAME@/$(SRC_PACKAGE_NAME)/g' \
+			-e 's/@DEB_PACKAGE_NAME@/$(DEB_PACKAGE_NAME)/g' \
+			-e 's/@DEB_PACKAGE_START_DEPS@/$$network $$mysql/g' \
+			-e 's/@DEB_PACKAGE_STOP_DEPS@/$$network $$mysql/g' \
+			-e 's/@PACKAGE_NAME@/$(PACKAGE_NAME)/g' \
+			-e 's/@PACKAGE_DESCRIPTION@/$(PACKAGE_DESCRIPTION)/g' \
+			-e 's/@PACKAGE_VERSION@/$(PACKAGE_VERSION)/g' \
+			-e 's/@PACKAGE_REVISION@/$(PACKAGE_REVISION)/g' \
+			-e 's/@PACKAGE_LICENSE@/$(PACKAGE_LICENSE)/g' \
+			-e 's/@DEB_TARGET_ARCH@/$(DEB_TARGET_ARCH)/g' \
+		../../common/deb/assets/etc/init.d/template-exporter; \
+	} > /tmp/mysqld-exporter
 	cd build; find . -type f ! -regex '.*?DEBIAN.*' -printf '%P ' | xargs md5sum > DEBIAN/md5sums
 	dpkg-deb -b build dist/$(DEB)
 

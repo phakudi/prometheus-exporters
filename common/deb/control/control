@@ -8,5 +8,6 @@ Depends: adduser, lsb-base
 Provides: @DEB_PACKAGE_NAME@
 Section: utils
 Priority: optional
-Homepage: https://apptuit.ai/promex
-Description: Prometheus Node/Instance metrics exporter for apptuit.ai
+Homepage: https://github.com/ApptuitAI/prometheus-exporters/tree/master/@SRC_PACKAGE_NAME@
+Description: @PACKAGE_DESCRIPTION@
+SHA1: @GIT_FULLSHA1@

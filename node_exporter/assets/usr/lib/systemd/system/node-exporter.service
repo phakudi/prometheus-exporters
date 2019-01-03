@@ -1,0 +1,33 @@
+#
+# systemd service file for forking Prom MySQL Exporter data collector for Apptuit.ai
+#
+
+[Unit]
+Description=Prometheus Node Metrics Exporter
+Documentation=https://github.com/prometheus/node_exporter
+After=network.target
+After=syslog.target
+
+[Install]
+WantedBy=multi-user.target
+
+[Service]
+PermissionsStartOnly=true
+User=prometheus
+Group=prometheus
+
+Type=simple
+
+WorkingDirectory=/opt/prometheus/node_exporter/
+
+#
+# The link below has a list of all the collectors enabled / disabled by default
+# for this exporter. Exporter configuration can be tweaked by including the
+# appropriate flags to EXPORTER_FLAGS variable below.
+#
+# Ref:- https://github.com/prometheus/node_exporter
+#
+
+ExecStartPre=/bin/sh -c "/bin/systemctl set-environment EXPORTER_FLAGS=\"\""
+
+ExecStart=/opt/prometheus/mysqld_exporter/bin/node_exporter $EXPORTER_FLAGS
