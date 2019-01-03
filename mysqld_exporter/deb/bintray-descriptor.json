@@ -17,8 +17,8 @@
     {
       "includePattern": "@PACKAGE_MODULE@/@PACKAGE_TYPE@/dist/(.*\\.deb)", "uploadPattern": "/pool/m/mysqld-exporter/$1",
       "matrixParams": {
-        "deb_distribution": "stable,bionic,xenial,jessie,stretch,trusty",
-        "deb_component": "mysqld-exporter,main",
+        "deb_distribution": "bionic,xenial,jessie,stretch,trusty",
+        "deb_component": "mysqld-exporter",
         "deb_architecture": "amd64,armhf,arm64,armel,ppc64el,mips64el",
         "override": 1
       }
