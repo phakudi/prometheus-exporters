@@ -1,4 +1,4 @@
-# Makefile for building linux packages for mysqld_exporter
+# Makefile for building linux packages for node_exporter
 
 export PACKAGE_DESCRIPTION := Prometheus Node metrics exporter for apptuit.ai
 

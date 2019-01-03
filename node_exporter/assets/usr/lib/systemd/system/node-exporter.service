@@ -1,5 +1,5 @@
 #
-# systemd service file for forking Prom MySQL Exporter data collector for Apptuit.ai
+# systemd service file for forking Prom Node Exporter data collector for Apptuit.ai
 #
 
 [Unit]
@@ -30,4 +30,4 @@ WorkingDirectory=/opt/prometheus/node_exporter/
 
 ExecStartPre=/bin/sh -c "/bin/systemctl set-environment EXPORTER_FLAGS=\"\""
 
-ExecStart=/opt/prometheus/mysqld_exporter/bin/node_exporter $EXPORTER_FLAGS
+ExecStart=/opt/prometheus/node_exporter/bin/node_exporter $EXPORTER_FLAGS

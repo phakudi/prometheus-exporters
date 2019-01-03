@@ -1,4 +1,4 @@
-# Makefile for building rpm packages for mysqld_exporter
+# Makefile for building rpm packages for node_exporter
 
 OS := linux
 RPM_BINTRAY_URL := https://dl.bintray.com/apptuitai/rpm/pool/n/$(RPM_PACKAGE_NAME)/

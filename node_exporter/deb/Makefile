@@ -41,8 +41,8 @@ mkdeb:
 			-e 's/@SRC_PKG_BASE_NAME@/$(SRC_PKG_BASE_NAME)/g' \
 			-e 's/@SRC_PACKAGE_NAME@/$(SRC_PACKAGE_NAME)/g' \
 			-e 's/@DEB_PACKAGE_NAME@/$(DEB_PACKAGE_NAME)/g' \
-			-e 's/@DEB_PACKAGE_START_DEPS@/$$network $$mysql/g' \
-			-e 's/@DEB_PACKAGE_STOP_DEPS@/$$network $$mysql/g' \
+			-e 's/@DEB_PACKAGE_START_DEPS@/$$network/g' \
+			-e 's/@DEB_PACKAGE_STOP_DEPS@/$$network/g' \
 			-e 's/@PACKAGE_NAME@/$(PACKAGE_NAME)/g' \
 			-e 's/@PACKAGE_DESCRIPTION@/$(PACKAGE_DESCRIPTION)/g' \
 			-e 's/@PACKAGE_VERSION@/$(PACKAGE_VERSION)/g' \
@@ -59,8 +59,8 @@ mkdeb:
 			-e 's/@SRC_PKG_BASE_NAME@/$(SRC_PKG_BASE_NAME)/g' \
 			-e 's/@SRC_PACKAGE_NAME@/$(SRC_PACKAGE_NAME)/g' \
 			-e 's/@DEB_PACKAGE_NAME@/$(DEB_PACKAGE_NAME)/g' \
-			-e 's/@DEB_PACKAGE_START_DEPS@/$$network $$mysql/g' \
-			-e 's/@DEB_PACKAGE_STOP_DEPS@/$$network $$mysql/g' \
+			-e 's/@DEB_PACKAGE_START_DEPS@/$$network/g' \
+			-e 's/@DEB_PACKAGE_STOP_DEPS@/$$network/g' \
 			-e 's/@PACKAGE_NAME@/$(PACKAGE_NAME)/g' \
 			-e 's/@PACKAGE_DESCRIPTION@/$(PACKAGE_DESCRIPTION)/g' \
 			-e 's/@PACKAGE_VERSION@/$(PACKAGE_VERSION)/g' \
@@ -77,8 +77,8 @@ mkdeb:
 			-e 's/@SRC_PKG_BASE_NAME@/$(SRC_PKG_BASE_NAME)/g' \
 			-e 's/@SRC_PACKAGE_NAME@/$(SRC_PACKAGE_NAME)/g' \
 			-e 's/@DEB_PACKAGE_NAME@/$(DEB_PACKAGE_NAME)/g' \
-			-e 's/@DEB_PACKAGE_START_DEPS@/$$network $$mysql/g' \
-			-e 's/@DEB_PACKAGE_STOP_DEPS@/$$network $$mysql/g' \
+			-e 's/@DEB_PACKAGE_START_DEPS@/$$network/g' \
+			-e 's/@DEB_PACKAGE_STOP_DEPS@/$$network/g' \
 			-e 's/@PACKAGE_NAME@/$(PACKAGE_NAME)/g' \
 			-e 's/@PACKAGE_DESCRIPTION@/$(PACKAGE_DESCRIPTION)/g' \
 			-e 's/@PACKAGE_VERSION@/$(PACKAGE_VERSION)/g' \
@@ -96,8 +96,8 @@ mkdeb:
 			-e 's/@SRC_PKG_BASE_NAME@/$(SRC_PKG_BASE_NAME)/g' \
 			-e 's/@SRC_PACKAGE_NAME@/$(SRC_PACKAGE_NAME)/g' \
 			-e 's/@DEB_PACKAGE_NAME@/$(DEB_PACKAGE_NAME)/g' \
-			-e 's/@DEB_PACKAGE_START_DEPS@/$$network $$mysql/g' \
-			-e 's/@DEB_PACKAGE_STOP_DEPS@/$$network $$mysql/g' \
+			-e 's/@DEB_PACKAGE_START_DEPS@/$$network/g' \
+			-e 's/@DEB_PACKAGE_STOP_DEPS@/$$network/g' \
 			-e 's/@PACKAGE_NAME@/$(PACKAGE_NAME)/g' \
 			-e 's/@PACKAGE_DESCRIPTION@/$(PACKAGE_DESCRIPTION)/g' \
 			-e 's/@PACKAGE_VERSION@/$(PACKAGE_VERSION)/g' \
@@ -115,8 +115,8 @@ mkdeb:
 			-e 's/@SRC_PKG_BASE_NAME@/$(SRC_PKG_BASE_NAME)/g' \
 			-e 's/@SRC_PACKAGE_NAME@/$(SRC_PACKAGE_NAME)/g' \
 			-e 's/@DEB_PACKAGE_NAME@/$(DEB_PACKAGE_NAME)/g' \
-			-e 's/@DEB_PACKAGE_START_DEPS@/$$network $$mysql/g' \
-			-e 's/@DEB_PACKAGE_STOP_DEPS@/$$network $$mysql/g' \
+			-e 's/@DEB_PACKAGE_START_DEPS@/$$network/g' \
+			-e 's/@DEB_PACKAGE_STOP_DEPS@/$$network/g' \
 			-e 's/@PACKAGE_NAME@/$(PACKAGE_NAME)/g' \
 			-e 's/@PACKAGE_DESCRIPTION@/$(PACKAGE_DESCRIPTION)/g' \
 			-e 's/@PACKAGE_VERSION@/$(PACKAGE_VERSION)/g' \
