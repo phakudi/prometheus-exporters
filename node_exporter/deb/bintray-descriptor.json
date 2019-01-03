@@ -1,8 +1,8 @@
 {
   "package": {
     "name": "node-exporter",
-    "repo": "debian",
-    "subject": "phakudicompany"
+    "repo": "deb",
+    "subject": "apptuittest"
   },
 
   "version": {
@@ -15,7 +15,7 @@
   "files":
   [
     {
-      "includePattern": "@PACKAGE_MODULE@/@PACKAGE_TYPE@/dist/(.*\\.deb)", "uploadPattern": "$1",
+      "includePattern": "@PACKAGE_MODULE@/@PACKAGE_TYPE@/dist/(.*\\.deb)", "uploadPattern": "/pool/n/node-exporter/$1",
       "matrixParams": {
         "deb_distribution": "bionic,xenial,jessie,stretch,trusty",
         "deb_component": "node-exporter",

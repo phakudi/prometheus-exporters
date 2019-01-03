@@ -2,7 +2,7 @@
   "package": {
     "name": "node-exporter",
     "repo": "rpm",
-    "subject": "phakudicompany"
+    "subject": "apptuittest"
   },
 
   "version": {
@@ -15,7 +15,7 @@
   "files":
   [
     {
-      "includePattern": "@PACKAGE_MODULE@/@PACKAGE_TYPE@/dist/(.*\\.rpm)", "uploadPattern": "$1"
+      "includePattern": "@PACKAGE_MODULE@/@PACKAGE_TYPE@/dist/(.*\\.rpm)", "uploadPattern": "/pool/n/node-exporter/$1"
     }
   ],
   "publish": true
