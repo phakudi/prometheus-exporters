@@ -1,6 +1,6 @@
 #!/bin/bash
 
-. ../common.sh
+. ../common/common.sh
 
 PACKAGE_NAME='elasticsearch-exporter'
 OS=$(get_os)

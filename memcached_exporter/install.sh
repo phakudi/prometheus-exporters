@@ -1,6 +1,6 @@
 #!/bin/bash
 
-. ../common.sh
+. ../common/common.sh
 
 PACKAGE_NAME='memcached-exporter'
 OS=$(get_os)
