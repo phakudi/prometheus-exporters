@@ -1,7 +1,7 @@
 # Makefile for building deb packages for node_exporter
 
 OS := linux
-DEB_BINTRAY_URL := https://dl.bintray.com/apptuitai/debian/pool/n/$(DEB_PACKAGE_NAME)/
+DEB_BINTRAY_URL := https://dl.bintray.com/apptuitai/debian/$(DEB_PACKAGE_NAME)/
 PKG_BASENAME := $(DEB_PACKAGE_NAME)_$(PACKAGE_VERSION)-$(PACKAGE_REVISION)
 DEB_TARGET_ARCH := $(DEB_TARGET_$(DEB_SRC_ARCH)_ARCH)
 DEB := $(PKG_BASENAME)_$(DEB_TARGET_ARCH).deb

@@ -1,7 +1,7 @@
 # Makefile for building rpm packages for node_exporter
 
 OS := linux
-RPM_BINTRAY_URL := https://dl.bintray.com/apptuitai/rpm/pool/n/$(RPM_PACKAGE_NAME)/
+RPM_BINTRAY_URL := https://dl.bintray.com/apptuitai/rpm/$(RPM_PACKAGE_NAME)/
 PKG_BASENAME := $(RPM_PACKAGE_NAME)-$(PACKAGE_VERSION)-$(PACKAGE_REVISION)
 RPM_TARGET_ARCH := $(RPM_TARGET_$(RPM_SRC_ARCH)_ARCH)
 RPM := $(PKG_BASENAME).$(RPM_TARGET_ARCH).rpm
