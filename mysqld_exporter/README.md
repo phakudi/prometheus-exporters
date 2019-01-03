@@ -34,7 +34,7 @@ sudo mysql -e "GRANT REPLICATION CLIENT ON *.* to 'xcollector'@'localhost';"
 
 #### Non-Interactive installation
 
-In this mode, the installer script reads the following environment variables to find inputs. Please be sure to 
+In this mode, the installer script reads the following environment variables for the inputs it needs. Please be sure to 
 set all of them with the appropriate values before invoking the commands below.
 
 If you have already executed the SQL commands above to create the metrics collection (defaults to 'prometheus') user manually, please use one of the following commands...
