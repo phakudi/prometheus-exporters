@@ -2,7 +2,7 @@
   "package": {
     "name": "mysqld-exporter",
     "repo": "rpm",
-    "subject": "phakudicompany"
+    "subject": "apptuittest"
   },
 
   "version": {

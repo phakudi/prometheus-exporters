@@ -1,7 +1,7 @@
 # Makefile for building rpm packages for mysqld_exporter
 
 OS := linux
-RPM_BINTRAY_URL := https://dl.bintray.com/apptuitai/rpm/pool/m/$(RPM_PACKAGE_NAME)/
+RPM_BINTRAY_URL := https://dl.bintray.com/apptuitai/rpm/$(RPM_PACKAGE_NAME)/
 PKG_BASENAME := $(RPM_PACKAGE_NAME)-$(PACKAGE_VERSION)-$(PACKAGE_REVISION)
 RPM_TARGET_ARCH := $(RPM_TARGET_$(RPM_SRC_ARCH)_ARCH)
 RPM := $(PKG_BASENAME).$(RPM_TARGET_ARCH).rpm
@@ -29,16 +29,19 @@ rpm:
 	mkdir -p build/
 	set -e; { \
 		sed \
-			-e 's/@GIT_VERSION@/$(GIT_VERSION)/' \
-			-e 's/@GIT_FULLSHA1@/$(GIT_FULLSHA1)/' \
-			-e 's/@GIT_SHORTSHA1@/$(GIT_SHORTSHA1)/' \
-			-e 's/@SRC_PKG_BASE_NAME@/$(SRC_PKG_BASE_NAME)/' \
-			-e 's/@RPM_PACKAGE_NAME@/$(RPM_PACKAGE_NAME)/' \
-			-e 's/@PACKAGE_VERSION@/$(PACKAGE_VERSION)/' \
-			-e 's/@PACKAGE_REVISION@/$(PACKAGE_REVISION)/' \
-			-e 's/@PACKAGE_LICENSE@/$(PACKAGE_LICENSE)/' \
-			-e 's/@RPM_TARGET_ARCH@/$(RPM_TARGET_ARCH)/' \
-		spec/${RPM_PACKAGE_NAME}.spec; \
+			-e 's/@GIT_VERSION@/$(GIT_VERSION)/g' \
+			-e 's/@GIT_FULLSHA1@/$(GIT_FULLSHA1)/g' \
+			-e 's/@GIT_SHORTSHA1@/$(GIT_SHORTSHA1)/g' \
+			-e 's/@SRC_PKG_BASE_NAME@/$(SRC_PKG_BASE_NAME)/g' \
+			-e 's/@SRC_PACKAGE_NAME@/$(SRC_PACKAGE_NAME)/g' \
+			-e 's/@PACKAGE_NAME@/$(PACKAGE_NAME)/g' \
+			-e 's/@PACKAGE_DESCRIPTION@/$(PACKAGE_DESCRIPTION)/g' \
+			-e 's/@PACKAGE_VERSION@/$(PACKAGE_VERSION)/g' \
+			-e 's/@PACKAGE_REVISION@/$(PACKAGE_REVISION)/g' \
+			-e 's/@PACKAGE_LICENSE@/$(PACKAGE_LICENSE)/g' \
+			-e 's/@RPM_PACKAGE_NAME@/$(RPM_PACKAGE_NAME)/g' \
+			-e 's/@RPM_TARGET_ARCH@/$(RPM_TARGET_ARCH)/g' \
+		../../common/rpm/spec/template-exporter.spec; \
 	} >build/${RPM_PACKAGE_NAME}-t.spec
 	rpmbuild --define "_topdir %(pwd)/build" --target ${RPM_TARGET_ARCH} -bb build/$(RPM_PACKAGE_NAME)-t.spec
 	mv build/RPMS/${RPM_TARGET_ARCH}/${RPM} dist/
