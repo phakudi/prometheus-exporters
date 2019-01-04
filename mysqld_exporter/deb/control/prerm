@@ -1,4 +1,0 @@
-#!/bin/bash
-
-invoke-rc.d mysqld-exporter stop
-update-rc.d -f mysqld-exporter remove
