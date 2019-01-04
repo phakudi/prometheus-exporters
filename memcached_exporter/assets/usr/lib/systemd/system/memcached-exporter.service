@@ -1,0 +1,32 @@
+#
+# systemd service file for forking Prom Memcached Exporter data collector for Apptuit.ai
+#
+
+[Unit]
+Description=Prometheus Memcached Metrics Exporter
+Documentation=https://github.com/prometheus/memcached_exporter
+After=network.target
+After=syslog.target
+
+[Install]
+WantedBy=multi-user.target
+
+[Service]
+PermissionsStartOnly=true
+User=prometheus
+Group=prometheus
+
+Type=simple
+
+WorkingDirectory=/opt/prometheus/memcached_exporter/
+
+#
+# You could add one or more of the following commonly used flags to EXPORTER_FLAGS environment variable below.
+# You can find a detailed list of all possible flags here... https://github.com/prometheus/memcached_exporter
+#
+# --memcached.address=localhost:11211 - Host and Port of memcached instance to be monitored.
+#
+
+ExecStartPre=/bin/sh -c "/bin/systemctl set-environment EXPORTER_FLAGS=\"--memcached.address=@MEMCACHE_HOST@:@MEMCACHE_PORT@\""
+
+ExecStart=/opt/prometheus/memcached_exporter/bin/memcached_exporter $EXPORTER_FLAGS

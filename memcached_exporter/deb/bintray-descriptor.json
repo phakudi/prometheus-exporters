@@ -1,25 +1,26 @@
 {
   "package": {
     "name": "memcached-exporter",
-    "repo": "debian",
-    "subject": "phakudiapptuittestorg"
+    "repo": "deb",
+    "subject": "apptuittest"
   },
 
   "version": {
-    "name": "@PACKAGE_VERSION@",
-    "desc": "Version @PACKAGE_VERSION@",
+    "name": "@PACKAGE_VERSION@-@PACKAGE_REVISION@",
+    "desc": "Version @PACKAGE_VERSION@-@PACKAGE_REVISION@",
     "released": "@PACKAGE_DATE@",
-    "vcs_tag": "memcached_exporter-v@PACKAGE_VERSION@"
+    "vcs_tag": "@PACKAGE_MODULE@-v@PACKAGE_VERSION@-@PACKAGE_REVISION@"
   },
 
   "files":
   [
     {
-      "includePattern": "memcached_exporter/deb/dist/(.*\\.deb)", "uploadPattern": "/pool/m/memcached-exporter/$1",
+      "includePattern": "@PACKAGE_MODULE@/@PACKAGE_TYPE@/dist/(.*\\.deb)", "uploadPattern": "/pool/m/memcached-exporter/$1",
       "matrixParams": {
-        "deb_distribution": "stable,jessie,stretch,artful,wheezy,xenial,zesty,trusty",
-        "deb_component": "memcached-exporter",
-        "deb_architecture": "i386,amd64"
+        "deb_distribution": "stable,bionic,xenial,jessie,stretch,trusty",
+        "deb_component": "main,memcached-exporter",
+        "deb_architecture": "amd64,armhf,arm64,armel,ppc64el,mips64el",
+        "override": 1
       }
     }
   ],
