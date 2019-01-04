@@ -121,7 +121,7 @@ function install_debian () {
     fi
 
     print_message "Installing APT source list for $1\n"
-    $sudo_cmd sh -c "echo 'deb https://dl.bintray.com/${BINTRAY_REPO_COMPANY}/debian/ stable main' > /etc/apt/sources.list.d/apptuit.list"
+    $sudo_cmd sh -c "echo 'deb https://dl.bintray.com/${BINTRAY_REPO_COMPANY}/deb/ stable main' > /etc/apt/sources.list.d/apptuit.list"
     print_message "Installing GPG keys for $1\n"
     $sudo_cmd apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 379CE192D401AB61
 
