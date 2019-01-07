@@ -1,0 +1,90 @@
+#!/bin/bash
+#
+# elasticsearch-exporter   Startup script for the elasticsearch-exporter monitoring agent
+#
+# chkconfig:   2345 15 85
+# description: elasticsearch-exporter - Data collection agent for apptuit.ai
+# processname: elasticsearch-exporter
+# pidfile: /var/run/prometheus/elasticsearch_exporter/elasticsearch-exporter.pid
+#
+### BEGIN INIT INFO
+# Provides: elasticsearch-exporter
+# Required-Start: $local_fs $remote_fs $network $named
+# Required-Stop: $local_fs $remote_fs $network
+# Short-Description: elasticsearch-exporter - Data collection agent for apptuit.ai
+# Description: elasticsearch-exporter - Data collection agent for apptuit.ai
+### END INIT INFO
+
+# Source function library.
+. /etc/init.d/functions
+
+if [ -r /etc/default/elasticsearch-exporter ]
+then
+	. /etc/default/elasticsearch-exporter
+fi
+
+THIS_HOST=`hostname`
+ELASTICSEARCH_EXPORTER_BINARY=${ELASTICSEARCH_EXPORTER_BINARY-/opt/prometheus/elasticsearch_exporter/bin/elasticsearch_exporter}
+PIDFILE=${PIDFILE-/var/run/prometheus/elasticsearch_exporter/elasticsearch_exporter.pid}
+LOGFILE=${LOGFILE-/var/log/prometheus/elasticsearch_exporter/elasticsearch_exporter.log}
+
+RUN_AS_USER=${RUN_AS_USER-prometheus}
+RUN_AS_GROUP=${RUN_AS_GROUP-prometheus}
+
+prog=elasticsearch_exporter
+if [ -f /etc/sysconfig/$prog ]; then
+  . /etc/sysconfig/$prog
+fi
+
+sanity_check() {
+  for file in "$PIDFILE" "$LOGFILE"; do
+    parentdir=`dirname "$file"`
+    if [ ! -d "$parentdir" ]; then
+      install -m 755 -o $RUN_AS_USER -g $RUN_AS_GROUP -d $parentdir
+    fi
+  done
+}
+
+start() {
+  echo -n $"Starting $prog: "
+  sanity_check || return $?
+  su - ${RUN_AS_USER} -s /bin/bash -c "EXPORTER_FLAGS=\"$EXPORTER_FLAGS\" nohup $ELASTICSEARCH_EXPORTER_BINARY $EXPORTER_FLAGS >> $LOGFILE 2>&1 &"
+  echo $(pidof elasticsearch_exporter) > ${PIDFILE}
+  read PID < "${PIDFILE}"
+  RETVAL=$?
+  echo "Running as PID ${PID}"
+  return $RETVAL
+}
+
+# When stopping elasticsearch-exporter a delay of ~15 seconds before SIGKILLing the
+# process so as to give enough time for elasticsearch-exporter to SIGKILL any errant
+# collectors.
+stop() {
+  echo -n $"Stopping $prog: "
+  sanity_check || return $?
+  killproc -p $PIDFILE -d 15 $ELASTICSEARCH_EXPORTER_BINARY
+  RETVAL=$?
+  echo
+  return $RETVAL
+}
+
+# See how we were called.
+case "$1" in
+  start) start;;
+  stop) stop;;
+  status)
+    status -p $PIDFILE $ELASTICSEARCH_EXPORTER_BINARY
+    RETVAL=$?
+    ;;
+  restart|force-reload|reload) stop && start;;
+  condrestart|try-restart)
+    if status -p $PIDFILE $ELASTICSEARCH_EXPORTER_BINARY >&/dev/null; then
+      stop && start
+    fi
+    ;;
+  *)
+    echo $"Usage: $prog {start|stop|status|restart|force-reload|reload|condrestart|try-restart}"
+    RETVAL=2
+esac
+
+exit $RETVAL

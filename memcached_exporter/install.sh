@@ -29,7 +29,7 @@ DEFAULT_MEMCACHE_PORT='11211'
 function localize_exporter_config() {
 	echo -n "Memcache IP [$DEFAULT_MEMCACHE_HOST] : "
 	read memcache_host
-	memcache_host=${memcache_host:-${DEFAULT_MYSQL_HOST}}
+	memcache_host=${memcache_host:-${DEFAULT_MEMCACHE_HOST}}
 	echo -n "Memcache Port [$DEFAULT_MEMCACHE_PORT] : "
 	read memcache_port
 	memcache_port=${memcache_port:-${DEFAULT_MEMCACHE_PORT}}
@@ -42,7 +42,7 @@ function localize_exporter_config() {
 	fi
 
 	if [ $is_systemd -eq 1 ]; then
-		sed -e "s/@MEMCACHE_HOST@/${memcache_host}/" -e "s/@MEMCACHE_PORT@/${memcache_port}/g" -i /usr/lib/systemd/system/mysqld-exporter.service
+		sed -e "s/@MEMCACHE_HOST@/${memcache_host}/" -e "s/@MEMCACHE_PORT@/${memcache_port}/g" -i /usr/lib/systemd/system/memcached-exporter.service
 		systemctl daemon-reload
 	fi
 
