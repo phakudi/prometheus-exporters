@@ -124,7 +124,7 @@ mkdeb:
 			-e 's/@PACKAGE_LICENSE@/$(PACKAGE_LICENSE)/g' \
 			-e 's/@DEB_TARGET_ARCH@/$(DEB_TARGET_ARCH)/g' \
 		../../common/deb/assets/etc/init.d/template-exporter; \
-	} > build/etc/init.d/memcached-exporter
+	} > build/etc/init.d/elasticsearch-exporter
 	cd build; find . -type f ! -regex '.*?DEBIAN.*' -printf '%P ' | xargs md5sum > DEBIAN/md5sums
 	dpkg-deb -b build dist/$(DEB)
 

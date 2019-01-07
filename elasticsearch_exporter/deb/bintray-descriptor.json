@@ -18,7 +18,7 @@
       "includePattern": "@PACKAGE_MODULE@/@PACKAGE_TYPE@/dist/(.*\\.deb)", "uploadPattern": "/pool/e/elasticsearch-exporter/$1",
       "matrixParams": {
         "deb_distribution": "stable,bionic,xenial,jessie,stretch,trusty",
-        "deb_component": "main,memcached-exporter",
+        "deb_component": "main,elasticsearch-exporter",
         "deb_architecture": "amd64,armhf,arm64,armel,ppc64el,mips64el",
         "override": 1
       }
