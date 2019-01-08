@@ -30,6 +30,8 @@ mkdeb:
 	mkdir -p dist/
 	mkdir -p build/DEBIAN/
 	cp -r ../assets/* build/
+	cp -r ../../common/assets/* build/
+	mv build/usr/lib/systemd/system/template-exporter.service build/usr/lib/systemd/system/$(PACKAGE_NAME).service
 	mkdir -p build/etc/init.d/
 	mkdir -p build/opt/prometheus/$(SRC_PACKAGE_NAME)/bin/
 	cp build-tmp/$(SRC_PKG_BASE_NAME)/$(SRC_PACKAGE_NAME) build/opt/prometheus/$(SRC_PACKAGE_NAME)/bin/
@@ -44,13 +46,15 @@ mkdeb:
 		-e 's/@DEB_PACKAGE_NAME@/$(DEB_PACKAGE_NAME)/g' \
 		-e 's/@DEB_PACKAGE_START_DEPS@/$$network/g' \
 		-e 's/@DEB_PACKAGE_STOP_DEPS@/$$network/g' \
+		-e 's/@PACKAGE_SYSTEMD_SERVICE_DEPS@/After=mysql.target/g' \
+		-e 's/@EXPORTER_ENVIRONMENT_VARIABLES@/DATA_SOURCE_NAME=\"$DATA_SOURCE_NAME\"/g' \
 		-e 's/@PACKAGE_NAME@/$(PACKAGE_NAME)/g' \
 		-e 's/@PACKAGE_DESCRIPTION@/$(PACKAGE_DESCRIPTION)/g' \
 		-e 's/@PACKAGE_VERSION@/$(PACKAGE_VERSION)/g' \
 		-e 's/@PACKAGE_REVISION@/$(PACKAGE_REVISION)/g' \
 		-e 's/@PACKAGE_LICENSE@/$(PACKAGE_LICENSE)/g' \
 		-e 's/@DEB_TARGET_ARCH@/$(DEB_TARGET_ARCH)/g' \
-		build/DEBIAN/control build/DEBIAN/conffiles build/DEBIAN/postinst build/DEBIAN/prerm build/etc/init.d/mysqld-exporter; \
+		build/DEBIAN/control build/DEBIAN/conffiles build/DEBIAN/postinst build/DEBIAN/prerm build/etc/init.d/mysqld-exporter build/usr/lib/systemd/system/$(PACKAGE_NAME).service; \
 	chmod 775 build/DEBIAN/postinst
 	chmod 775 build/DEBIAN/prerm
 	cd build; find . -type f ! -regex '.*?DEBIAN.*' -printf '%P ' | xargs md5sum > DEBIAN/md5sums
