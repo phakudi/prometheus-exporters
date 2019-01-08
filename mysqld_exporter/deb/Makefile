@@ -52,7 +52,7 @@ mkdeb:
 			-e 's/@PACKAGE_LICENSE@/$(PACKAGE_LICENSE)/g' \
 			-e 's/@DEB_TARGET_ARCH@/$(DEB_TARGET_ARCH)/g' \
 		build/DEBIAN/control build/DEBIAN/conffiles build/DEBIAN/postinst build/DEBIAN/prerm build/etc/init.d/mysqld-exporter; \
-	}
+	} > /dev/null
 	chmod 775 build/DEBIAN/postinst
 	chmod 775 build/DEBIAN/prerm
 	cd build; find . -type f ! -regex '.*?DEBIAN.*' -printf '%P ' | xargs md5sum > DEBIAN/md5sums
