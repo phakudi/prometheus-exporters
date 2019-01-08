@@ -30,7 +30,7 @@ function localize_exporter_config() {
 	read es_url
 	es_url=${es_url:-${$DEFAULT_ELASTICSEARCH_URL}}
 	print_message "info" "Updating exporter configuration..."
-	sed -e "s/@ELASTICSEARCH_URL@/${es_url}/g" -i /etc/default/elasticsearch-exporter
+	sed -e "s,@ELASTICSEARCH_URL@,${es_url},g" -i /etc/default/elasticsearch-exporter
 	is_systemd=0
 
 	if [ -d /run/systemd/system ]; then
