@@ -27,6 +27,7 @@ dlsrcpkg:
 rpm:
 	mkdir -p dist/
 	mkdir -p build/
+	cp ../../common/rpm/spec/template-exporter.spec build/$(RPM_PACKAGE_NAME)-t.spec
 	cp -r ../../common/assets/* build/
 	mv build/usr/lib/systemd/system/template-exporter.service build/usr/lib/systemd/system/$(PACKAGE_NAME).service
 	sed -i \
@@ -44,7 +45,7 @@ rpm:
 		-e 's/@RPM_TARGET_ARCH@/$(RPM_TARGET_ARCH)/g' \
 		-e 's/@PACKAGE_SYSTEMD_SERVICE_DEPS@/After=mysql.target/g' \
 		-e 's/@EXPORTER_ENVIRONMENT_VARIABLES@/DATA_SOURCE_NAME=\"$DATA_SOURCE_NAME\"/g' \
-		../../common/rpm/spec/template-exporter.spec build/usr/lib/systemd/system/$(PACKAGE_NAME).service; \
+		build/$(RPM_PACKAGE_NAME)-t.spec build/usr/lib/systemd/system/$(PACKAGE_NAME).service; \
 	rpmbuild --define "_topdir %(pwd)/build" --target ${RPM_TARGET_ARCH} -bb build/$(RPM_PACKAGE_NAME)-t.spec
 	mv build/RPMS/${RPM_TARGET_ARCH}/${RPM} dist/
 
