@@ -22,7 +22,7 @@ Requires:       initscripts
 %install
 
 mkdir -p %{buildroot}/usr/lib/systemd/system/
-%{__install} -m 0755 -D %{rootdir}/../assets/usr/lib/systemd/system/@RPM_PACKAGE_NAME@.service %{buildroot}/usr/lib/systemd/system/@RPM_PACKAGE_NAME@.service
+%{__install} -m 0755 -D %{rootdir}/usr/lib/systemd/system/@RPM_PACKAGE_NAME@.service %{buildroot}/usr/lib/systemd/system/@RPM_PACKAGE_NAME@.service
 
 mkdir -p %{buildroot}/etc/init.d/
 %{__install} -m 0755 -D %{rootdir}/assets/etc/init.d/@RPM_PACKAGE_NAME@ %{buildroot}/etc/init.d/@RPM_PACKAGE_NAME@
