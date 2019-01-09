@@ -53,7 +53,7 @@ mkdeb:
 		-e 's/@PACKAGE_REVISION@/$(PACKAGE_REVISION)/g' \
 		-e 's/@PACKAGE_LICENSE@/$(PACKAGE_LICENSE)/g' \
 		-e 's/@PACKAGE_SYSTEMD_SERVICE_DEPS@/After=mysql.target/g' \
-		-e 's/@EXPORTER_ENVIRONMENT_VARIABLES@/DATA_SOURCE_NAME=\"$DATA_SOURCE_NAME\"/g' \
+		-e 's/@EXPORTER_ENVIRONMENT_VARIABLES@/DATA_SOURCE_NAME=\\\"$$DATA_SOURCE_NAME\\\"/g' \
 		build/DEBIAN/control build/DEBIAN/conffiles build/DEBIAN/postinst build/DEBIAN/prerm build/etc/init.d/mysqld-exporter build/usr/lib/systemd/system/$(PACKAGE_NAME).service; \
 	chmod 775 build/DEBIAN/postinst
 	chmod 775 build/DEBIAN/prerm
