@@ -47,7 +47,7 @@ rpm:
 		-e 's/@RPM_TARGET_ARCH@/$(RPM_TARGET_ARCH)/g' \
 		-e 's/@PACKAGE_SYSTEMD_SERVICE_DEPS@/After=mysql.target/g' \
 		-e 's/@EXPORTER_ENVIRONMENT_VARIABLES@/DATA_SOURCE_NAME=\\\"$$DATA_SOURCE_NAME\\\"/g' \
-		build/$(RPM_PACKAGE_NAME)-t.spec build/usr/lib/systemd/system/$(PACKAGE_NAME).service; \
+		build/$(RPM_PACKAGE_NAME)-t.spec build/usr/lib/systemd/system/$(PACKAGE_NAME).service build/etc/init.d/$(RPM_PACKAGE_NAME); \
 	rpmbuild --define "_topdir %(pwd)/build" --target ${RPM_TARGET_ARCH} -bb build/$(RPM_PACKAGE_NAME)-t.spec
 	mv build/RPMS/${RPM_TARGET_ARCH}/${RPM} dist/
 

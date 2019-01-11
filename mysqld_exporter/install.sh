@@ -76,6 +76,7 @@ function print_mysql_user_creation_help() {
 }
 
 function configure_exporter_interactively() {
+	print_message "info" "Interactive Configuration for MySQL Exporter\n"
 	echo -n "MySQL IP [$DEFAULT_MYSQL_HOST] : "
 	read mysql_host
 	mysql_host=${mysql_host:-${DEFAULT_MYSQL_HOST}}
@@ -102,8 +103,10 @@ function configure_exporter_interactively() {
 }
 
 function configure_exporter_noninteractively() {
+	print_message "info" "Command line option --interactive not found. Proceeding in non-interactive mode.\n"
 	if [ -z "$MYSQL_URL" ];
 	then
+		print_message "warn" "Env variable MYSQL_URL not found. Using Default Datasource URL for accessing MySQL instance. Please edit /etc/default/mysqld-exporter if you would like to change it.\n"
 		MYSQL_URL=${DEFAULT_MYSQL_URL}
 	fi
 	update_exporter_configuration $MYSQL_URL
@@ -111,12 +114,12 @@ function configure_exporter_noninteractively() {
 
 function update_exporter_configuration() {
 	print_message "info" "Updating exporter configuration..."
-	sed -e "s/@MYSQL_URL@/${1}/" -i /etc/default/mysqld-exporter
+	sed -e "s|@MYSQL_URL@|${1}|g" -i /etc/default/mysqld-exporter
 	print_message "info" "DONE\n"
 }
 
 function configure_exporter() {
-	if [[ -z "$1" ] && [ "$1" -ne "--interactive" ]];
+	if [ -z "$1" ] || [ ! "$1" == "--interactive" ]
 	then
 		configure_exporter_noninteractively
 	else
