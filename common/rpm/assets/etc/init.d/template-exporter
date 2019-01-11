@@ -8,30 +8,30 @@
 # pidfile: /var/run/prometheus/@SRC_PACKAGE_NAME@/@SRC_PACKAGE_NAME@.pid
 #
 ### BEGIN INIT INFO
-# Provides: mysqld-exporter
+# Provides: @RPM_PACKAGE_NAME@
 # Required-Start: $local_fs $remote_fs $network $named
 # Required-Stop: $local_fs $remote_fs $network
-# Short-Description: mysqld-exporter - Data collection agent for apptuit.ai
-# Description: mysqld-exporter - Data collection agent for apptuit.ai
+# Short-Description: @RPM_PACKAGE_NAME@ - @PACKAGE_DESCRIPTION@
+# Description: @RPM_PACKAGE_NAME@ - @PACKAGE_DESCRIPTION@
 ### END INIT INFO
 
 # Source function library.
 . /etc/init.d/functions
 
-if [ -r /etc/default/mysqld-exporter ]
+if [ -r /etc/default/@RPM_PACKAGE_NAME@ ]
 then
-	. /etc/default/mysqld-exporter
+	. /etc/default/@RPM_PACKAGE_NAME@
 fi
 
 THIS_HOST=`hostname`
-MYSQLD_EXPORTER_BINARY=${MYSQLD_EXPORTER_BINARY-/opt/prometheus/mysqld_exporter/bin/mysqld_exporter}
-PIDFILE=${PIDFILE-/var/run/prometheus/mysqld_exporter/mysqld_exporter.pid}
-LOGFILE=${LOGFILE-/var/log/prometheus/mysqld_exporter/mysqld_exporter.log}
+EXPORTER_BINARY=${EXPORTER_BINARY-/opt/prometheus/@SRC_PACKAGE_NAME@/bin/@SRC_PACKAGE_NAME@}
+PIDFILE=${PIDFILE-/var/run/prometheus/@SRC_PACKAGE_NAME@/@RPM_PACKAGE_NAME@.pid}
+LOGFILE=${LOGFILE-/var/log/prometheus/@SRC_PACKAGE_NAME@/@RPM_PACKAGE_NAME@.log}
 
 RUN_AS_USER=${RUN_AS_USER-prometheus}
 RUN_AS_GROUP=${RUN_AS_GROUP-prometheus}
 
-prog=mysqld_exporter
+prog=@SRC_PACKAGE_NAME@
 if [ -f /etc/sysconfig/$prog ]; then
   . /etc/sysconfig/$prog
 fi
@@ -48,21 +48,21 @@ sanity_check() {
 start() {
   echo -n $"Starting $prog: "
   sanity_check || return $?
-  su - ${RUN_AS_USER} -s /bin/bash -c "DATA_SOURCE_NAME=\"$DATA_SOURCE_NAME\" EXPORTER_FLAGS=\"$EXPORTER_FLAGS\" nohup $MYSQLD_EXPORTER_BINARY $EXPORTER_FLAGS >> $LOGFILE 2>&1 &"
-  echo $(pidof mysqld_exporter) > ${PIDFILE}
+  su - ${RUN_AS_USER} -s /bin/bash -c "DATA_SOURCE_NAME=\"$DATA_SOURCE_NAME\" EXPORTER_FLAGS=\"$EXPORTER_FLAGS\" nohup $EXPORTER_BINARY $EXPORTER_FLAGS >> $LOGFILE 2>&1 &"
+  echo $(pidof @SRC_PACKAGE_NAME@) > ${PIDFILE}
   read PID < "${PIDFILE}"
   RETVAL=$?
   echo "Running as PID ${PID}"
   return $RETVAL
 }
 
-# When stopping mysqld-exporter a delay of ~15 seconds before SIGKILLing the
-# process so as to give enough time for mysqld-exporter to SIGKILL any errant
+# When stopping @RPM_PACKAGE_NAME@ a delay of ~15 seconds before SIGKILLing the
+# process so as to give enough time for @RPM_PACKAGE_NAME@ to SIGKILL any errant
 # collectors.
 stop() {
   echo -n $"Stopping $prog: "
   sanity_check || return $?
-  killproc -p $PIDFILE -d 15 $MYSQLD_EXPORTER_BINARY
+  killproc -p $PIDFILE -d 15 $EXPORTER_BINARY
   RETVAL=$?
   echo
   return $RETVAL
@@ -73,12 +73,12 @@ case "$1" in
   start) start;;
   stop) stop;;
   status)
-    status -p $PIDFILE $MYSQLD_EXPORTER_BINARY
+    status -p $PIDFILE $EXPORTER_BINARY
     RETVAL=$?
     ;;
   restart|force-reload|reload) stop && start;;
   condrestart|try-restart)
-    if status -p $PIDFILE $MYSQLD_EXPORTER_BINARY >&/dev/null; then
+    if status -p $PIDFILE $EXPORTER_BINARY >&/dev/null; then
       stop && start
     fi
     ;;

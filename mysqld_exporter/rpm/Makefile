@@ -26,10 +26,12 @@ dlsrcpkg:
 
 rpm:
 	mkdir -p dist/
-	mkdir -p build/
-	cp ../../common/rpm/spec/template-exporter.spec build/$(RPM_PACKAGE_NAME)-t.spec
+	mkdir -p build/usr/lib/systemd/system/
+	mkdir -p build/etc/init.d/
 	cp -r ../../common/assets/* build/
-	mv build/usr/lib/systemd/system/template-exporter.service build/usr/lib/systemd/system/$(PACKAGE_NAME).service
+	cp ../../common/rpm/assets/etc/init.d/template-exporter build/etc/init.d/$(RPM_PACKAGE_NAME)
+	cp ../../common/rpm/spec/template-exporter.spec build/$(RPM_PACKAGE_NAME)-t.spec
+	cp ../../common/assets/usr/lib/systemd/system/template-exporter.service build/usr/lib/systemd/system/$(PACKAGE_NAME).service
 	sed -i \
 		-e 's/@GIT_VERSION@/$(GIT_VERSION)/g' \
 		-e 's/@GIT_FULLSHA1@/$(GIT_FULLSHA1)/g' \
