@@ -1,5 +1,5 @@
 
-export DATA_SOURCE_NAME="@MYSQL_USER@:@MYSQL_PASSWORD@@(@MYSQL_HOST@:@MYSQL_PORT@)/"
+export DATA_SOURCE_NAME="@MYSQL_URL@"
 
 #
 # Below are the most common flags (and their defaults)
