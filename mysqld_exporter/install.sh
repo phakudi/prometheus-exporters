@@ -26,6 +26,8 @@ OS=$(get_os)
 DEFAULT_MYSQL_HOST='localhost'
 DEFAULT_MYSQL_PORT='3306'
 DEFAULT_MYSQL_USER='prometheus'
+DEFAULT_MYSQL_PASSWORD='prometheus'
+DEFAULT_MYSQL_URL='prometheus:prometheus@(localhost:3306)/'
 
 function check_valid_mysql_user() {
 	local host=$1
@@ -73,7 +75,7 @@ function print_mysql_user_creation_help() {
 	print_message "info" "mysql -u root -p -h $1 -P $2 -e \"GRANT REPLICATION CLIENT ON *.* to '${3}'@'localhost';\"\n\n"
 }
 
-function localize_exporter_config() {
+function configure_exporter_interactively() {
 	echo -n "MySQL IP [$DEFAULT_MYSQL_HOST] : "
 	read mysql_host
 	mysql_host=${mysql_host:-${DEFAULT_MYSQL_HOST}}
@@ -95,20 +97,31 @@ function localize_exporter_config() {
 			[Nn]* ) exit;;
 		esac
 	fi
+	mysql_url="$mysql_user:$mysql_user_password@($mysql_host:$mysql_port)/"
+	update_exporter_configuration $mysql_url
+}
+
+function configure_exporter_noninteractively() {
+	if [ -z "$MYSQL_URL" ];
+	then
+		MYSQL_URL=${DEFAULT_MYSQL_URL}
+	fi
+	update_exporter_configuration $MYSQL_URL
+}
+
+function update_exporter_configuration() {
 	print_message "info" "Updating exporter configuration..."
-	sed -e "s/@MYSQL_HOST@/${mysql_host}/" -e "s/@MYSQL_PORT@/${mysql_port}/" -e "s/@MYSQL_USER@/${mysql_user}/" -e "s/@MYSQL_PASSWORD@/${mysql_user_password}/" -i /etc/default/mysqld-exporter
-	is_systemd=0
-
-	if [ -d /run/systemd/system ]; then
-	   is_systemd=1
-	fi
-
-	if [ $is_systemd -eq 1 ]; then
-		sed -e "s/@MYSQL_HOST@/${mysql_host}/" -e "s/@MYSQL_PORT@/${mysql_port}/" -e "s/@MYSQL_USER@/${mysql_user}/" -e "s/@MYSQL_PASSWORD@/${mysql_user_password}/" -i /usr/lib/systemd/system/mysqld-exporter.service
-		systemctl daemon-reload
-	fi
-
+	sed -e "s/@MYSQL_URL@/${1}/" -i /etc/default/mysqld-exporter
 	print_message "info" "DONE\n"
+}
+
+function configure_exporter() {
+	if [[ -z "$1" ] && [ "$1" -ne "--interactive" ]];
+	then
+		configure_exporter_noninteractively
+	else
+		configure_exporter_interactively
+	fi
 }
 
 trap 'post_error ${PACKAGE_NAME}' ERR
@@ -119,13 +132,13 @@ post_complete $PACKAGE_NAME
 case $OS in
     RedHat)
         install_redhat $PACKAGE_NAME
-        localize_exporter_config
+        configure_exporter
         start_service $PACKAGE_NAME
         ;;
 
     Debian)
         install_debian $PACKAGE_NAME
-        localize_exporter_config
+        configure_exporter
         start_service $PACKAGE_NAME
         ;;
 
