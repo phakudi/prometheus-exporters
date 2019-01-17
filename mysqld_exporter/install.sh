@@ -102,13 +102,13 @@ function configure_exporter_noninteractively() {
 		print_message "warn" "Env variable MYSQL_URL not found. Using Default Datasource URL (${MYSQL_URL}) for accessing MySQL instance. Please edit /etc/default/mysqld-exporter if you would like to change it later.\n"
 	else
 		print_message "info" "Using MYSQL_URL=$MYSQL_URL to configure datasource for exporter.\n"
+		update_exporter_configuration $MYSQL_URL
 	fi
-	update_exporter_configuration $MYSQL_URL
 }
 
 function update_exporter_configuration() {
 	print_message "info" "Updating exporter configuration..."
-	sed -e "s|@MYSQL_URL@|${1}|g" -i /etc/default/mysqld-exporter
+	sed -e "s|export DATA_SOURCE_NAME=""prometheus:prometheus@(localhost:3306)/""|export DATA_SOURCE_NAME=""${1}""|g" -i /etc/default/mysqld-exporter
 	print_message "info" "DONE\n"
 }
 

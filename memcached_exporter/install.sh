@@ -44,13 +44,13 @@ function configure_exporter_noninteractively() {
 		print_message "warn" "Env variable MEMCACHE_ADDRESS not found. Using Default address ($MEMCACHE_ADDRESS}) for accessing memcache instance. Please edit /etc/default/memcached-exporter if you would like to change it later.\n"
 	else
 		print_message "info" "Using MEMCACHE_ADDRESS=$MEMCACHE_ADDRESS to configure exporter.\n"
+		update_exporter_configuration $MEMCACHE_ADDRESS
 	fi
-	update_exporter_configuration $MEMCACHE_ADDRESS
 }
 
 function update_exporter_configuration() {
 	print_message "info" "Updating exporter configuration..."
-	sed -e "s|@MEMCACHE_ADDRESS@|${1}|g" -i /etc/default/memcached-exporter
+	sed -e "s|export EXPORTER_FLAGS=""--memcached.address=localhost:11211""|export EXPORTER_FLAGS="${1}"|g" -i /etc/default/memcached-exporter
 	print_message "info" "DONE\n"
 }
 
