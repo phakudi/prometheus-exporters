@@ -1,8 +1,8 @@
 {
   "package": {
     "name": "memcached-exporter",
-    "repo": "deb",
-    "subject": "apptuittest"
+    "repo": "@PACKAGE_REPOSITORY@",
+    "subject": "@BINTRAY_ORGANIZATION@"
   },
 
   "version": {

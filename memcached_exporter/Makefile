@@ -4,8 +4,9 @@ export PACKAGE_DESCRIPTION := Prometheus Memecached metrics exporter for apptuit
 
 export SRC_PACKAGE_NAME := ${PACKAGE_MODULE}
 
-export DEB_PACKAGE_NAME := memcached-exporter
-export RPM_PACKAGE_NAME := memcached-exporter
+export PACKAGE_NAME := memcached-exporter
+export DEB_PACKAGE_NAME := ${PACKAGE_NAME}
+export RPM_PACKAGE_NAME := ${PACKAGE_NAME}
 
 export PACKAGE_LICENSE := Apache-2.0
 

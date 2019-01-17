@@ -34,7 +34,6 @@ function check_valid_mysql_user() {
 	local port=$2
 	local user=$3
 	local password=$4
-	echo "$1 $2 $3 $4"
 	numrows=$(mysql -u ${user} -p${password} -h ${host} -P ${port} -e "select count(*)" 2>/dev/null)
 	if [ ! -z "$numrows" ]; then
 		n=$(echo $numrows | cut -d " " -f2)
@@ -42,7 +41,7 @@ function check_valid_mysql_user() {
 			return 1
 		fi
 	fi
-	echo -n "Invalid mysql user '$user'. Would you like to create the user? Requires you to provide the mysql root password. (y/n)?"
+	print_message "warn" "Invalid mysql user '$user'. Would you like to create the user? Requires you to provide the mysql root password. (y/n)?"
 	read yesno
 	case $yesno in
 		[Yy]* ) create_mysql_user $host $port $user $password; return 1;;
@@ -56,10 +55,8 @@ function create_mysql_user() {
 	local port=$2
 	local mysql_user=$3
 	local mysql_user_password=$4
-	echo -n "Password for MySQL 'root' User : "
-	read -s mysql_root_password
-	echo ""
-	echo -n "Creating MySQL user '${mysql_user}' and granting needed permissions..."
+	read -ps "Password for MySQL 'root' User : " mysql_root_password
+	print_message "info" "Creating MySQL user '${mysql_user}' and granting needed permissions..."
 	mysql -u root -p${mysql_root_password} -h ${host} -P ${port} -e "CREATE USER '${mysql_user}'@'localhost' IDENTIFIED BY '${mysql_user_password}';"
 	mysql -u root -p${mysql_root_password} -h ${host} -P ${port} -e "GRANT PROCESS ON *.* TO '${mysql_user}'@'localhost';"
 	mysql -u root -p${mysql_root_password} -h ${host} -P ${port} -e "GRANT SELECT ON performance_schema.* TO '${mysql_user}'@'localhost';"
@@ -77,23 +74,18 @@ function print_mysql_user_creation_help() {
 
 function configure_exporter_interactively() {
 	print_message "info" "Interactive Configuration for MySQL Exporter\n"
-	echo -n "MySQL IP [$DEFAULT_MYSQL_HOST] : "
-	read mysql_host
+	read -p "MySQL IP [$DEFAULT_MYSQL_HOST] : " mysql_host
 	mysql_host=${mysql_host:-${DEFAULT_MYSQL_HOST}}
-	echo -n "MySQL Port [$DEFAULT_MYSQL_PORT] : "
-	read mysql_port
+	read -p "MySQL Port [$DEFAULT_MYSQL_PORT] : " mysql_port
 	mysql_port=${mysql_port:-${DEFAULT_MYSQL_PORT}}
-	echo -n "MySQL User for metrics collection [$DEFAULT_MYSQL_USER] : "
-	read mysql_user
+	read -p "MySQL User for metrics collection [$DEFAULT_MYSQL_USER] : " mysql_user
 	mysql_user=${mysql_user:-${DEFAULT_MYSQL_USER}}
-	echo -n "Password for '${mysql_user}' User : "
-	read -s mysql_user_password
-	echo ""
+	read -ps "Password for '${mysql_user}' User : " mysql_user_password
 	check_valid_mysql_user $mysql_host $mysql_port $mysql_user $mysql_user_password
 	isvalid=$?
 	if [ -z $isvalid ] || [ "$isvalid" != "1" ]; then
-		echo -n "Have you manually created the user? Would you like to proceed? (y/n)?"
-		read yesno
+		read -p "Have you manually created the user? Would you like to proceed? (y/n)?" yesno
+		yesno=${yesno:-y}
 		case $yesno in
 			[Nn]* ) exit;;
 		esac
@@ -106,8 +98,8 @@ function configure_exporter_noninteractively() {
 	print_message "info" "Command line option --interactive not found. Proceeding in non-interactive mode.\n"
 	if [ -z "$MYSQL_URL" ];
 	then
-		print_message "warn" "Env variable MYSQL_URL not found. Using Default Datasource URL for accessing MySQL instance. Please edit /etc/default/mysqld-exporter if you would like to change it.\n"
 		MYSQL_URL=${DEFAULT_MYSQL_URL}
+		print_message "warn" "Env variable MYSQL_URL not found. Using Default Datasource URL (${MYSQL_URL}) for accessing MySQL instance. Please edit /etc/default/mysqld-exporter if you would like to change it later.\n"
 	else
 		print_message "info" "Using MYSQL_URL=$MYSQL_URL to configure datasource for exporter.\n"
 	fi

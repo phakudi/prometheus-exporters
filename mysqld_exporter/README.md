@@ -22,7 +22,7 @@ This is the default mode of installation. In this mode, the installer script ass
 database user for the exporter (using the SQL commands above) and reads the following environment variable(s) for the 
 inputs it needs. Please be sure to set them up with the appropriate value(s) before invoking the commands below.
 
-For default install using curl, please use...
+For default non-interactive install using curl, please use...
 
 ```bash
 MYSQL_URL="<mysql_user_name>:<mysql_user_password>@(<mysql_host>:<mysql_port>)/" bash -c "$(curl -Ls https://raw.githubusercontent.com/phakudi/prometheus-exporters/master/mysqld_exporter/install.sh)"
