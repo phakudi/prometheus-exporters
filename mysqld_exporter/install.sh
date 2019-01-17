@@ -108,6 +108,8 @@ function configure_exporter_noninteractively() {
 	then
 		print_message "warn" "Env variable MYSQL_URL not found. Using Default Datasource URL for accessing MySQL instance. Please edit /etc/default/mysqld-exporter if you would like to change it.\n"
 		MYSQL_URL=${DEFAULT_MYSQL_URL}
+	else
+		print_message "info" "Using MYSQL_URL=$MYSQL_URL to configure datasource for exporter.\n"
 	fi
 	update_exporter_configuration $MYSQL_URL
 }
