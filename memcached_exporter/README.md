@@ -23,7 +23,7 @@ For non-interactive install using wget please use...
 ```bash
 MEMCACHE_ADDRESS="<memcache_host>:<memcache_port>" bash -c "$(wget -qO- https://raw.githubusercontent.com/phakudi/prometheus-exporters/master/memcached_exporter/install.sh)"
 ```
-In absence of the MEMCACHE_URL environment variable, the installer script assumes a default address - 
+In absence of the MEMCACHE_ADDRESS environment variable, the installer script assumes a default address - 
 "localhost:11211". You can change this anytime after installation by editing 
 the value of the command line parameter mentioned in EXPORTER_FLAGS variable in /etc/default/memcached-exporter.
 
