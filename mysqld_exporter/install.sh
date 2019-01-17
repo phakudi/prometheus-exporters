@@ -135,13 +135,13 @@ post_complete $PACKAGE_NAME
 case $OS in
     RedHat)
         install_redhat $PACKAGE_NAME
-        configure_exporter $1
+        configure_exporter $0
         start_service $PACKAGE_NAME
         ;;
 
     Debian)
         install_debian $PACKAGE_NAME
-        configure_exporter $1
+        configure_exporter $0
         start_service $PACKAGE_NAME
         ;;
 
