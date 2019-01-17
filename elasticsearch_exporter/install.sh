@@ -23,11 +23,11 @@ fi
 PACKAGE_NAME='elasticsearch-exporter'
 OS=$(get_os)
 
-DEFAULT_ELASTICSEARCH_URL='http://elasticsearch:9200'
+DEFAULT_ELASTICSEARCH_URL='http://localhost:9200'
 
 function configure_exporter_interactively() {
 	read -p "Elasticsearch URL [ $DEFAULT_ELASTICSEARCH_URL ] : " es_url
-	es_url=${es_url:-${$DEFAULT_ELASTICSEARCH_URL}}
+	es_url=${es_url:-${DEFAULT_ELASTICSEARCH_URL}}
 	update_exporter_configuration $es_url
 }
 
