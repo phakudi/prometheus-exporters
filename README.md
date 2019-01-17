@@ -3,6 +3,6 @@
 Prometheus Metrics Exporters packaged for use with Apptuit.ai.
 
 * [Node/System Metrics Exporter](node_exporter)
-* [Memcached Metrics Exporter](https://github.com/ApptuitAI/prometheus-exporters/memcached_exporter)
-* [MySQL Server Metrics Exporter](https://github.com/ApptuitAI/prometheus-exporters/mysqld_exporter)
-* [Elasticsearch Metrics Exporter](https://github.com/ApptuitAI/prometheus-exporters/elasticsearch_exporter)
+* [Memcached Metrics Exporter](memcached_exporter)
+* [MySQL Server Metrics Exporter](mysqld_exporter)
+* [Elasticsearch Metrics Exporter](elasticsearch_exporter)
