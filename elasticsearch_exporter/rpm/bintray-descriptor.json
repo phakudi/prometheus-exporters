@@ -1,8 +1,8 @@
 {
   "package": {
     "name": "elasticsearch-exporter",
-    "repo": "rpm",
-    "subject": "apptuittest"
+    "repo": "@PACKAGE_REPOSITORY@",
+    "subject": "@BINTRAY_ORGANIZATION@"
   },
 
   "version": {

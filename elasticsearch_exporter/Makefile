@@ -4,8 +4,9 @@ export PACKAGE_DESCRIPTION := Prometheus Elasticsearch metrics exporter for appt
 
 export SRC_PACKAGE_NAME := ${PACKAGE_MODULE}
 
-export DEB_PACKAGE_NAME := elasticsearch-exporter
-export RPM_PACKAGE_NAME := elasticsearch-exporter
+export PACKAGE_NAME := elasticsearch-exporter
+export DEB_PACKAGE_NAME := ${PACKAGE_NAME}
+export RPM_PACKAGE_NAME := ${PACKAGE_NAME}
 
 export PACKAGE_LICENSE := Apache-2.0
 

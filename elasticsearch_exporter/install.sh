@@ -25,24 +25,37 @@ OS=$(get_os)
 
 DEFAULT_ELASTICSEARCH_URL='http://elasticsearch:9200'
 
-function localize_exporter_config() {
-	echo -n "Elasticsearch URL [$DEFAULT_ELASTICSEARCH_URL] : "
-	read es_url
+function configure_exporter_interactively() {
+	read -p "Elasticsearch URL [ $DEFAULT_ELASTICSEARCH_URL ] : " es_url
 	es_url=${es_url:-${$DEFAULT_ELASTICSEARCH_URL}}
+	update_exporter_configuration $es_url
+}
+
+function configure_exporter_noninteractively() {
+	print_message "info" "Command line option --interactive not found. Proceeding in non-interactive mode.\n"
+	if [ -z "$ES_URL" ];
+	then
+		ES_URL=${DEFAULT_ELASTICSEARCH_URL}
+		print_message "warn" "Env variable ES_URL not found. Using Default Datasource URL (${ES_URL}) for accessing Elasticsearch cluster. Please edit /etc/default/elasticsearch-exporter if you would like to change it later.\n"
+	else
+		print_message "info" "Using ES_URL=$ES_URL to configure datasource for exporter.\n"
+	fi
+	update_exporter_configuration $ES_URL
+}
+
+function update_exporter_configuration() {
 	print_message "info" "Updating exporter configuration..."
-	sed -e "s,@ELASTICSEARCH_URL@,${es_url},g" -i /etc/default/elasticsearch-exporter
-	is_systemd=0
-
-	if [ -d /run/systemd/system ]; then
-	   is_systemd=1
-	fi
-
-	if [ $is_systemd -eq 1 ]; then
-		sed -e "s/@ELASTICSEARCH_URL@/${es_url}/" -i /usr/lib/systemd/system/elasticsearch-exporter.service
-		systemctl daemon-reload
-	fi
-
+	sed -e "s|@ELASTICSEARCH_URL@|${1}|g" -i /etc/default/elasticsearch-exporter
 	print_message "info" "DONE\n"
+}
+
+function configure_exporter() {
+	if [ -z "$1" ] || [ ! "$1" == "--interactive" ]
+	then
+		configure_exporter_noninteractively
+	else
+		configure_exporter_interactively
+	fi
 }
 
 trap 'post_error ${PACKAGE_NAME}' ERR
@@ -53,13 +66,13 @@ post_complete $PACKAGE_NAME
 case $OS in
     RedHat)
         install_redhat $PACKAGE_NAME
-        localize_exporter_config
+        configure_exporter $0
         start_service $PACKAGE_NAME
         ;;
 
     Debian)
         install_debian $PACKAGE_NAME
-        localize_exporter_config
+        configure_exporter $0
         start_service $PACKAGE_NAME
         ;;
 
