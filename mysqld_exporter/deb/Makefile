@@ -36,7 +36,7 @@ mkdeb:
 	mkdir -p build/opt/prometheus/$(SRC_PACKAGE_NAME)/bin/
 	cp build-tmp/$(SRC_PKG_BASE_NAME)/$(SRC_PACKAGE_NAME) build/opt/prometheus/$(SRC_PACKAGE_NAME)/bin/
 	cp ../../common/deb/control/* build/DEBIAN/
-	cp ../../common/deb/assets/etc/init.d/template-exporter build/etc/init.d/mysqld-exporter
+	cp ../../common/deb/assets/etc/init.d/template-exporter build/etc/init.d/$(PACKAGE_NAME)
 	sed -i \
 		-e 's/@GIT_VERSION@/$(GIT_VERSION)/g' \
 		-e 's/@GIT_FULLSHA1@/$(GIT_FULLSHA1)/g' \
@@ -54,7 +54,7 @@ mkdeb:
 		-e 's/@PACKAGE_LICENSE@/$(PACKAGE_LICENSE)/g' \
 		-e 's/@PACKAGE_SYSTEMD_SERVICE_DEPS@/After=mysql.target/g' \
 		-e 's/@EXPORTER_ENVIRONMENT_VARIABLES@/DATA_SOURCE_NAME=\\\"$$DATA_SOURCE_NAME\\\"/g' \
-		build/DEBIAN/control build/DEBIAN/conffiles build/DEBIAN/postinst build/DEBIAN/prerm build/etc/init.d/mysqld-exporter build/usr/lib/systemd/system/$(PACKAGE_NAME).service; \
+		build/DEBIAN/control build/DEBIAN/conffiles build/DEBIAN/postinst build/DEBIAN/prerm build/etc/init.d/$(PACKAGE_NAME) build/usr/lib/systemd/system/$(PACKAGE_NAME).service; \
 	chmod 775 build/DEBIAN/postinst
 	chmod 775 build/DEBIAN/prerm
 	cd build; find . -type f ! -regex '.*?DEBIAN.*' -printf '%P ' | xargs md5sum > DEBIAN/md5sums

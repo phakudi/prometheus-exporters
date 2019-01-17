@@ -26,9 +26,13 @@ dlsrcpkg:
 
 rpm:
 	mkdir -p dist/
-	mkdir -p build/
-	set -e; { \
-		sed \
+	mkdir -p build/usr/lib/systemd/system/
+	mkdir -p build/etc/init.d/
+	cp -r ../../common/assets/* build/
+	cp ../../common/rpm/assets/etc/init.d/template-exporter build/etc/init.d/$(RPM_PACKAGE_NAME)
+	cp ../../common/rpm/spec/template-exporter.spec build/$(RPM_PACKAGE_NAME)-t.spec
+	cp ../../common/assets/usr/lib/systemd/system/template-exporter.service build/usr/lib/systemd/system/$(PACKAGE_NAME).service
+	sed -i \
 			-e 's/@GIT_VERSION@/$(GIT_VERSION)/g' \
 			-e 's/@GIT_FULLSHA1@/$(GIT_FULLSHA1)/g' \
 			-e 's/@GIT_SHORTSHA1@/$(GIT_SHORTSHA1)/g' \
@@ -41,8 +45,9 @@ rpm:
 			-e 's/@PACKAGE_LICENSE@/$(PACKAGE_LICENSE)/g' \
 			-e 's/@RPM_PACKAGE_NAME@/$(RPM_PACKAGE_NAME)/g' \
 			-e 's/@RPM_TARGET_ARCH@/$(RPM_TARGET_ARCH)/g' \
-		../../common/rpm/spec/template-exporter.spec; \
-	} >build/${RPM_PACKAGE_NAME}-t.spec
+		-e 's/@PACKAGE_SYSTEMD_SERVICE_DEPS@//g' \
+		-e 's/@EXPORTER_ENVIRONMENT_VARIABLES@//g' \
+		build/$(RPM_PACKAGE_NAME)-t.spec build/usr/lib/systemd/system/$(PACKAGE_NAME).service build/etc/init.d/$(RPM_PACKAGE_NAME); \
 	rpmbuild --define "_topdir %(pwd)/build" --target ${RPM_TARGET_ARCH} -bb build/$(RPM_PACKAGE_NAME)-t.spec
 	mv build/RPMS/${RPM_TARGET_ARCH}/${RPM} dist/
 

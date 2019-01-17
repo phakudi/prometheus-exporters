@@ -4,8 +4,9 @@ export PACKAGE_DESCRIPTION := Prometheus Node metrics exporter for apptuit.ai
 
 export SRC_PACKAGE_NAME := ${PACKAGE_MODULE}
 
-export DEB_PACKAGE_NAME := node-exporter
-export RPM_PACKAGE_NAME := node-exporter
+export PACKAGE_NAME := node-exporter
+export DEB_PACKAGE_NAME := ${PACKAGE_NAME}
+export RPM_PACKAGE_NAME := ${PACKAGE_NAME}
 
 export PACKAGE_LICENSE := Apache-2.0
 

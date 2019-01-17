@@ -23,12 +23,12 @@ fi
 PACKAGE_NAME='node-exporter'
 OS=$(get_os)
 
-function localize_exporter_config() {
+function configure_exporter() {
 	print_message "info" "No localization needed for node-exporter"
 	return
 }
 
-trap post_error ERR
+trap 'post_error ${PACKAGE_NAME}' ERR
 check_root
 setup_log $PACKAGE_NAME
 post_complete $PACKAGE_NAME
@@ -36,13 +36,13 @@ post_complete $PACKAGE_NAME
 case $OS in
     RedHat)
         install_redhat $PACKAGE_NAME
-        localize_exporter_config
+        configure_exporter $0
         start_service $PACKAGE_NAME
         ;;
 
     Debian)
         install_debian $PACKAGE_NAME
-        localize_exporter_config
+        configure_exporter $0
         start_service $PACKAGE_NAME
         ;;
 
