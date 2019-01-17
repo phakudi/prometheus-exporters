@@ -18,9 +18,10 @@ sudo mysql -e "GRANT REPLICATION CLIENT ON *.* to 'xcollector'@'localhost';"
 
 #### Non-Interactive installation
 
-This is the default mode of installation. In this mode, the installer script assumes that you have already setup a 
-database user for the exporter (using the SQL commands above) and reads the following environment variable(s) for the 
-inputs it needs. Please be sure to set them up with the appropriate value(s) before invoking the commands below.
+This is the default mode of installation. In this mode, the installer script assumes that you have a MySQL database 
+up and running and have already setup a database user for the exporter (using the SQL commands above).
+The installer reads the following environment variable(s) for the inputs it needs. Please be sure to set them up with 
+the appropriate value(s) before invoking the commands below.
 
 For default non-interactive install using curl, please use...
 
