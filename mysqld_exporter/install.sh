@@ -55,7 +55,7 @@ function create_mysql_user() {
 	local port=$2
 	local mysql_user=$3
 	local mysql_user_password=$4
-	read -ps "Password for MySQL 'root' User : " mysql_root_password
+	read -p "Password for MySQL 'root' User : " -s mysql_root_password
 	print_message "info" "Creating MySQL user '${mysql_user}' and granting needed permissions..."
 	mysql -u root -p${mysql_root_password} -h ${host} -P ${port} -e "CREATE USER '${mysql_user}'@'localhost' IDENTIFIED BY '${mysql_user_password}';"
 	mysql -u root -p${mysql_root_password} -h ${host} -P ${port} -e "GRANT PROCESS ON *.* TO '${mysql_user}'@'localhost';"
@@ -80,7 +80,7 @@ function configure_exporter_interactively() {
 	mysql_port=${mysql_port:-${DEFAULT_MYSQL_PORT}}
 	read -p "MySQL User for metrics collection [$DEFAULT_MYSQL_USER] : " mysql_user
 	mysql_user=${mysql_user:-${DEFAULT_MYSQL_USER}}
-	read -ps "Password for '${mysql_user}' User : " mysql_user_password
+	read -p "Password for '${mysql_user}' User : " -s mysql_user_password
 	check_valid_mysql_user $mysql_host $mysql_port $mysql_user $mysql_user_password
 	isvalid=$?
 	if [ -z $isvalid ] || [ "$isvalid" != "1" ]; then
