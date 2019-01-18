@@ -1,6 +1,8 @@
 #!/bin/bash
 
 BINTRAY_REPO_COMPANY=apptuittest
+DEBIAN_REPO_NAME=deb
+RPM_REPO_NAME=rpm
 
 function check_root() {
 	if [ "$EUID" -ne 0 ]
@@ -121,7 +123,7 @@ function install_debian () {
     fi
 
     print_message "Installing APT source list for $1\n"
-    $sudo_cmd sh -c "echo 'deb https://dl.bintray.com/${BINTRAY_REPO_COMPANY}/deb/ stable main' > /etc/apt/sources.list.d/apptuit.list"
+    $sudo_cmd sh -c "echo 'deb https://dl.bintray.com/${BINTRAY_REPO_COMPANY}/${DEBIAN_REPO_NAME}/ stable main' > /etc/apt/sources.list.d/apptuit.list"
     print_message "Installing GPG keys for $1\n"
     $sudo_cmd apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 379CE192D401AB61
 
@@ -133,7 +135,7 @@ function install_debian () {
 
 function install_redhat () {
     print_message "Installing YUM sources for Apptuit\n"
-    $sudo_cmd sh -c "echo -e '[apptuit]\nname=Apptuit.AI\nbaseurl=https://dl.bintray.com/${BINTRAY_REPO_COMPANY}/rpm\nenabled=1\ngpgcheck=0\nrepo_gpgcheck=0\n' > /etc/yum.repos.d/apptuit.repo"
+    $sudo_cmd sh -c "echo -e '[apptuit]\nname=Apptuit.AI\nbaseurl=https://dl.bintray.com/${BINTRAY_REPO_COMPANY}/${RPM_REPO_NAME}\nenabled=1\ngpgcheck=0\nrepo_gpgcheck=0\n' > /etc/yum.repos.d/apptuit.repo"
 
     print_message "Installing $1\n"
     $sudo_cmd yum -y install $1
