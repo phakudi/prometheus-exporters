@@ -50,7 +50,7 @@ function configure_exporter_noninteractively() {
 
 function update_exporter_configuration() {
 	print_message "info" "Updating exporter configuration..."
-	sed -e "s|export EXPORTER_FLAGS=""--memcached.address=localhost:11211""|export EXPORTER_FLAGS="${1}"|g" -i /etc/default/memcached-exporter
+	sed -e "s|export EXPORTER_FLAGS=\"--memcached.address=localhost:11211\"|export EXPORTER_FLAGS=\"--memcached.address=${1}\"|g" -i /etc/default/memcached-exporter
 	print_message "info" "DONE\n"
 }
 

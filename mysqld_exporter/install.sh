@@ -108,7 +108,7 @@ function configure_exporter_noninteractively() {
 
 function update_exporter_configuration() {
 	print_message "info" "Updating exporter configuration..."
-	sed -e "s|export DATA_SOURCE_NAME=""prometheus:prometheus@(localhost:3306)/""|export DATA_SOURCE_NAME=""${1}""|g" -i /etc/default/mysqld-exporter
+	sed -e "s|export DATA_SOURCE_NAME=\"prometheus:prometheus@(localhost:3306)/\"|export DATA_SOURCE_NAME=\"${1}\"|g" -i /etc/default/mysqld-exporter
 	print_message "info" "DONE\n"
 }
 
