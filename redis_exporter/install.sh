@@ -77,7 +77,7 @@ function update_exporter_configuration() {
 	print_message "info" "Updating exporter configuration..."
 	sed \
 		-e "s|export REDIS_ADDR=\"redis://localhost:6379\"|export REDIS_ADDR=\"${1}\"|g" \
-		-e "s|export REDIS_ALIAS=\"localhost\"|export REDIS_ADDR=\"${2}\"|g" \
+		-e "s|export REDIS_ALIAS=\"localhost\"|export REDIS_ALIAS=\"${2}\"|g" \
 		-e "s|export REDIS_PASSWORD=\"\"|export REDIS_PASSWORD=\"${3}\"|g" \
 		-i /etc/default/redis-exporter
 	print_message "info" "DONE\n"
