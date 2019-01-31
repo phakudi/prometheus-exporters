@@ -8,8 +8,8 @@
 #
 
 export REDIS_ADDR="redis://localhost:6379"
+export REDIS_ALIAS="localhost"
 export REDIS_PASSWORD=""
-export REDIS_ALIAS="$HOSTNAME"
 
 export EXPORTER_FLAGS=""
 
