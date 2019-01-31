@@ -33,23 +33,11 @@ all: deb rpm
 
 deb:
 	make 'DEB_SRC_ARCH=amd64' -C deb/
-	make 'DEB_SRC_ARCH=arm64' -C deb/
-	make 'DEB_SRC_ARCH=armv7' -C deb/
-	make 'DEB_SRC_ARCH=ppc64le' -C deb/
-	make 'DEB_SRC_ARCH=mips64le' -C deb/
 
 rpm:
 	make 'RPM_SRC_ARCH=amd64' -C rpm/
-	make 'RPM_SRC_ARCH=arm64' -C rpm/
-	make 'RPM_SRC_ARCH=armv7' -C rpm/
-	make 'RPM_SRC_ARCH=ppc64' -C rpm/
-	make 'RPM_SRC_ARCH=ppc64le' -C rpm/
 
 lint:
 	make 'DEB_SRC_ARCH=amd64' -C deb/ lint
-	make 'DEB_SRC_ARCH=arm64' -C deb/ lint
-	make 'DEB_SRC_ARCH=armv7' -C deb/ lint
-	make 'DEB_SRC_ARCH=ppc64le' -C deb/ lint
-	make 'DEB_SRC_ARCH=mips64le' -C deb/ lint
 
 .PHONY: all deb rpm lint

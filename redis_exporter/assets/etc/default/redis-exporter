@@ -4,7 +4,7 @@
 # for this exporter. Exporter configuration can be tweaked by including the
 # appropriate flags to EXPORTER_FLAGS variable below.
 #
-# Ref:- https://github.com/prometheus/node_exporter
+# Ref:- https://github.com/oliver006/redis_exporter
 #
 
 export EXPORTER_FLAGS=""

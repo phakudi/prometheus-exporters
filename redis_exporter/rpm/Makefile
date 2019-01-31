@@ -23,6 +23,8 @@ check: ;
 dlsrcpkg:
 	mkdir -p build-tmp/
 	cd build-tmp/ && curl -L -O $(SRC_PKG_URL) && tar -zxvf $(SRC_PKG_FILE_NAME) && cd ..
+	mkdir -p build-tmp/$(SRC_PKG_BASE_NAME)/
+	mv build-tmp/$(SRC_PACKAGE_NAME) build-tmp/$(SRC_PKG_BASE_NAME)/
 
 rpm:
 	mkdir -p dist/

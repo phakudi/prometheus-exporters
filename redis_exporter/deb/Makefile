@@ -34,7 +34,7 @@ mkdeb:
 	mv build/usr/lib/systemd/system/template-exporter.service build/usr/lib/systemd/system/$(PACKAGE_NAME).service
 	mkdir -p build/etc/init.d/
 	mkdir -p build/opt/prometheus/$(SRC_PACKAGE_NAME)/bin/
-	cp build-tmp/$(SRC_PKG_BASE_NAME)/$(SRC_PACKAGE_NAME) build/opt/prometheus/$(SRC_PACKAGE_NAME)/bin/
+	cp build-tmp/$(SRC_PACKAGE_NAME) build/opt/prometheus/$(SRC_PACKAGE_NAME)/bin/
 	cp ../../common/deb/control/* build/DEBIAN/
 	cp ../../common/deb/assets/etc/init.d/template-exporter build/etc/init.d/$(PACKAGE_NAME)
 	sed -i \
