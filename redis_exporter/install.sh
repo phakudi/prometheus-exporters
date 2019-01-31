@@ -61,7 +61,7 @@ function configure_exporter_noninteractively() {
 
 function configure_exporter_interactively() {
 	print_message "info" "Interactive Configuration for Redis Exporter\n"
-	read -p "Redis IP [$DEFAULT_REDIS_HOST] : " redis_host
+	read -p "Redis IP/Host [$DEFAULT_REDIS_HOST] : " redis_host
 	redis_host=${redis_host:-${DEFAULT_REDIS_HOST}}
 	read -p "Redis Port [$DEFAULT_REDIS_PORT] : " redis_port
 	redis_port=${redis_port:-${DEFAULT_REDIS_PORT}}
