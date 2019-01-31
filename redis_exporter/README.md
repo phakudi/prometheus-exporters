@@ -1,4 +1,4 @@
-# Redis Metrics Exporter [![Build Status](https://travis-ci.com/ApptuitAI/prometheus-exporters.svg?branch=master)](https://travis-ci.com/ApptuitAI/prometheus-exporters)
+# Redis Metrics Exporter [![Build Status](https://travis-ci.com/phakudi/prometheus-exporters.svg?branch=master)](https://travis-ci.com/phakudi/prometheus-exporters)
 
 Prometheus Redis metrics exporter for reporting metrics to Apptuit.ai
 
