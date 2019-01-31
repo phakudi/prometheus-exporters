@@ -26,7 +26,7 @@ OS=$(get_os)
 DEFAULT_REDIS_HOST='localhost'
 DEFAULT_REDIS_PORT='6379'
 DEFAULT_REDIS_ADDR='redis://localhost:6379'
-DEFUALT_REDIS_ALIAS="${HOSTNAME}"
+DEFAULT_REDIS_ALIAS=$(hostname -s)
 DEFAULT_REDIS_PASSWORD=""
 
 function configure_exporter() {
