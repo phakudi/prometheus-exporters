@@ -19,7 +19,7 @@
       "matrixParams": {
         "deb_distribution": "stable,bionic,xenial,jessie,stretch,trusty",
         "deb_component": "main,redis-exporter",
-        "deb_architecture": "amd64,armhf,arm64,armel,ppc64el,mips64el",
+        "deb_architecture": "amd64",
         "override": 1
       }
     }
