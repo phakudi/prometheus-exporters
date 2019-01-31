@@ -7,5 +7,9 @@
 # Ref:- https://github.com/oliver006/redis_exporter
 #
 
+export REDIS_ADDR="redis://localhost:6379"
+export REDIS_PASSWORD=""
+export REDIS_ALIAS="$HOSTNAME"
+
 export EXPORTER_FLAGS=""
 

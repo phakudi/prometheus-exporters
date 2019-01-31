@@ -53,7 +53,7 @@ mkdeb:
 			-e 's/@PACKAGE_REVISION@/$(PACKAGE_REVISION)/g' \
 			-e 's/@PACKAGE_LICENSE@/$(PACKAGE_LICENSE)/g' \
 		-e 's/@PACKAGE_SYSTEMD_SERVICE_DEPS@//g' \
-		-e 's/@EXPORTER_ENVIRONMENT_VARIABLES@//g' \
+		-e 's/@EXPORTER_ENVIRONMENT_VARIABLES@/REDIS_ADDR=\\\"$$REDIS_ADDR\\\" REDIS_PASSWORD=\\\"$$REDIS_PASSWORD\\\" REDIS_ALIAS=\\\"$$REDIS_ALIAS\\\"/g' \
 		build/DEBIAN/control build/DEBIAN/conffiles build/DEBIAN/postinst build/DEBIAN/prerm build/etc/init.d/$(PACKAGE_NAME) build/usr/lib/systemd/system/$(PACKAGE_NAME).service; \
 	chmod 775 build/DEBIAN/postinst
 	chmod 775 build/DEBIAN/prerm

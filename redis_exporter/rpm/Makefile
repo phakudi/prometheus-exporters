@@ -48,7 +48,7 @@ rpm:
 			-e 's/@RPM_PACKAGE_NAME@/$(RPM_PACKAGE_NAME)/g' \
 			-e 's/@RPM_TARGET_ARCH@/$(RPM_TARGET_ARCH)/g' \
 		-e 's/@PACKAGE_SYSTEMD_SERVICE_DEPS@//g' \
-		-e 's/@EXPORTER_ENVIRONMENT_VARIABLES@//g' \
+		-e 's/@EXPORTER_ENVIRONMENT_VARIABLES@/REDIS_ADDR=\\\"$$REDIS_ADDR\\\" REDIS_PASSWORD=\\\"$$REDIS_PASSWORD\\\" REDIS_ALIAS=\\\"$$REDIS_ALIAS\\\"/g' \
 		build/$(RPM_PACKAGE_NAME)-t.spec build/usr/lib/systemd/system/$(PACKAGE_NAME).service build/etc/init.d/$(RPM_PACKAGE_NAME); \
 	rpmbuild --define "_topdir %(pwd)/build" --target ${RPM_TARGET_ARCH} -bb build/$(RPM_PACKAGE_NAME)-t.spec
 	mv build/RPMS/${RPM_TARGET_ARCH}/${RPM} dist/
