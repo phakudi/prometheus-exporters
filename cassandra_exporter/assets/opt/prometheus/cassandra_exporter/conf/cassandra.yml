@@ -1,3 +1,4 @@
+jmxUrl: service:jmx:rmi:///jndi/rmi://localhost:7199/jmxrmi
 lowercaseOutputLabelNames: true
 lowercaseOutputName: true
 whitelistObjectNames: ["org.apache.cassandra.metrics:*"]
