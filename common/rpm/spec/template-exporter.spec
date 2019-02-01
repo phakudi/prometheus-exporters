@@ -3,6 +3,7 @@
 
 %global @SRC_PACKAGE_NAME@_dir /opt/prometheus/@SRC_PACKAGE_NAME@
 %global rootdir       		%{_topdir}/..
+%global @SRC_PACKAGE_NAME@ @SRC_PACKAGE_NAME@
 
 Name:           @RPM_PACKAGE_NAME@
 Group:          System/Monitoring
@@ -34,6 +35,9 @@ mkdir -p %{buildroot}/etc/default/
 mkdir -p %{buildroot}%{@SRC_PACKAGE_NAME@_dir}/bin/
 %{__install} -m 0755 -D %{rootdir}/build-tmp/@SRC_PKG_BASE_NAME@/@SRC_PACKAGE_NAME@ %{buildroot}%{@SRC_PACKAGE_NAME@_dir}/bin/@SRC_PACKAGE_NAME@
 
+%if "%{cassandra_exporter}" == "cassandra_exporter"
+%{__install} -m 0755 -D %{rootdir}/build/opt/prometheus/jmx_exporter_base/lib/jmx_prometheus_httpserver-@PACKAGE_VERSION@-jar-with-dependencies.jar %{buildroot}%{@SRC_PACKAGE_NAME@_dir}/lib/jmx_prometheus_httpserver-@PACKAGE_VERSION@-jar-with-dependencies.jar
+%endif
 
 %files
 

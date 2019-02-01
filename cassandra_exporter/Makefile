@@ -1,18 +1,18 @@
-# Makefile for building linux packages for redis_exporter
+# Makefile for building linux packages for mysqld_exporter
 
-export PACKAGE_DESCRIPTION := Prometheus Redis metrics exporter for apptuit.ai
+export PACKAGE_DESCRIPTION := Prometheus Cassandra metrics exporter for apptuit.ai
 
-export SRC_PACKAGE_NAME := ${PACKAGE_MODULE}
+export SRC_PACKAGE_NAME := cassandra_exporter
 
-export PACKAGE_NAME := redis-exporter
+export PACKAGE_NAME := cassandra-exporter
 export DEB_PACKAGE_NAME := ${PACKAGE_NAME}
 export RPM_PACKAGE_NAME := ${PACKAGE_NAME}
 
-export PACKAGE_LICENSE := MIT
+export PACKAGE_LICENSE := Apache-2.0
 
-export DEB_TARGET_amd64_ARCH := amd64
+export DEB_TARGET_noarch_ARCH := all
 
-export RPM_TARGET_amd64_ARCH := x86_64
+export RPM_TARGET_noarch_ARCH := noarch
 
 export GIT_VERSION := \
   $(shell git rev-list --pretty=format:%h HEAD --max-count=1 | sed 1d || echo unknown)
@@ -24,12 +24,12 @@ export GIT_SHORTSHA1 := \
 all: deb rpm
 
 deb:
-	make 'DEB_SRC_ARCH=amd64' -C deb/
+	make 'DEB_SRC_ARCH=noarch' -C deb/
 
 rpm:
-	make 'RPM_SRC_ARCH=amd64' -C rpm/
+	make 'RPM_SRC_ARCH=noarch' -C rpm/
 
 lint:
-	make 'DEB_SRC_ARCH=amd64' -C deb/ lint
+	make 'DEB_SRC_ARCH=noarch' -C deb/ lint
 
 .PHONY: all deb rpm lint
