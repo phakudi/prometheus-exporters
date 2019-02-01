@@ -70,7 +70,7 @@ function update_exporter_configuration() {
 	print_message "info" "Updating exporter configuration..."
 	sed \
 		-e "s|jmxUrl: ${DEFAULT_CASSANDRA_JMX_URL}|jmxUrl: ${1}|g" \
-		-e "s|      \"alias\": \"localhost\"|\"alias\": \"${2}\"|g" \
+		-e "s|      \"alias\": \"localhost\"|      \"alias\": \"${2}\"|g" \
 		-i /opt/prometheus/cassandra_exporter/conf/cassandra.yml
 	print_message "info" "DONE\n"
 }
