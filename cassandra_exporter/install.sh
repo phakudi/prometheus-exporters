@@ -58,7 +58,7 @@ function configure_exporter_interactively() {
 	print_message "info" "Interactive Configuration for Cassandra Exporter\n"
 	read -p "Cassandra IP/Host [$DEFAULT_CASSANDRA_HOST] : " cassandra_host
 	cassandra_host=${cassandra_host:-${DEFAULT_CASSANDRA_HOST}}
-	read -p "Cassandra Port [$DEFAULT_CASSANDRA_PORT] : " cassandra_port
+	read -p "Cassandra JMX Port [$DEFAULT_CASSANDRA_PORT] : " cassandra_port
 	cassandra_port=${cassandra_port:-${DEFAULT_CASSANDRA_PORT}}
 	read -p "Cassandra alias for metrics [$cassandra_host] : " cassandra_alias
 	cassandra_alias=${cassandra_alias:-${cassandra_host}}
