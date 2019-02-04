@@ -23,6 +23,7 @@ rpm: clean
 	mkdir -p build/etc/init.d/
 	mkdir -p build-tmp/$(SRC_PKG_BASE_NAME)/
 	cp ../assets/opt/prometheus/$(SRC_PACKAGE_NAME)/bin/$(SRC_PACKAGE_NAME) build-tmp/$(SRC_PKG_BASE_NAME)/$(SRC_PACKAGE_NAME)
+	cp ../assets/opt/prometheus/$(SRC_PACKAGE_NAME)/conf/cassandra.yml build/
 	cp -r ../../common/assets/* build/
 	cp -r ../../jmx_exporter_base/assets/* build/
 	cp ../../common/rpm/assets/etc/init.d/template-exporter build/etc/init.d/$(RPM_PACKAGE_NAME)
