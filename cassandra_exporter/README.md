@@ -4,7 +4,17 @@ Prometheus Cassandra metrics exporter for reporting metrics to Apptuit.ai
 
 ### Installation
 
-Cassandra Exporter is available via debian & yum repositories. 
+Cassandra Exporter is available via debian & yum repositories. It uses JMX to fetch metrics.
+Please include the following command line properties in the cassandra JVM configuration to enable 
+remote fetch of metrics via JMX.
+
+```
+-Dcom.sun.management.jmxremote
+-Dcom.sun.management.jmxremote.port=7199
+-Dcom.sun.management.jmxremote.local.only=false
+-Dcom.sun.management.jmxremote.authenticate=false
+-Dcom.sun.management.jmxremote.ssl=false
+```
 
 #### Non-Interactive installation
 
