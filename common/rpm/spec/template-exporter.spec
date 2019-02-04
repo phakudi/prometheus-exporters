@@ -50,7 +50,7 @@ mkdir -p %{buildroot}%{@SRC_PACKAGE_NAME@_dir}/conf/
 %{@SRC_PACKAGE_NAME@_dir}/bin/@SRC_PACKAGE_NAME@
 
 %if "%{cassandra_exporter}" == "cassandra_exporter"
-%{@SRC_PACKAGE_NAME@_dir}/lib/jmx_prometheus_httpserver-@PACKAGE_VERSION@-jar-with-dependencies.jar
+/opt/prometheus/jmx_exporter_base/lib/jmx_prometheus_httpserver-@PACKAGE_VERSION@-jar-with-dependencies.jar
 %{@SRC_PACKAGE_NAME@_dir}/conf/cassandra.yml
 %endif
 
