@@ -1,0 +1,7 @@
+#!/bin/bash
+
+echo "$(date)"
+echo "Starting JVM Exporter..."
+
+/usr/bin/java -jar /opt/prometheus/jmx_exporter_base/lib/jmx_prometheus_httpserver-0.11.0-jar-with-dependencies.jar localhost:9404 \
+		/opt/prometheus/jvm_exporter/conf/jvm.yml
