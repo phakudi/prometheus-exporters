@@ -1,10 +1,10 @@
-# Makefile for building linux packages for cassandra_exporter
+# Makefile for building linux packages for jvm_exporter
 
-export PACKAGE_DESCRIPTION := Prometheus Cassandra metrics exporter for apptuit.ai
+export PACKAGE_DESCRIPTION := Prometheus JVM metrics exporter for apptuit.ai
 
-export SRC_PACKAGE_NAME := cassandra_exporter
+export SRC_PACKAGE_NAME := jvm_exporter
 
-export PACKAGE_NAME := cassandra-exporter
+export PACKAGE_NAME := jvm-exporter
 export DEB_PACKAGE_NAME := ${PACKAGE_NAME}
 export RPM_PACKAGE_NAME := ${PACKAGE_NAME}
 
