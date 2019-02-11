@@ -1,0 +1,12 @@
+
+export DATA_SOURCE_NAME="prometheus:prometheus@(localhost:5432)/"
+
+#
+# Below are the most common flags (and their defaults)
+# an administrator could tweak to customize the exporter
+# to the needs of their environment.
+#
+# Ref:- https://github.com/wrouesnel/postgres_exporter#flags
+#
+
+export EXPORTER_FLAGS=""
