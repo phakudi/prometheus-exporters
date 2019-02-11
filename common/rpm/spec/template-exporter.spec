@@ -40,6 +40,11 @@ mkdir -p %{buildroot}%{@SRC_PACKAGE_NAME@_dir}/bin/
 mkdir -p %{buildroot}%{@SRC_PACKAGE_NAME@_dir}/conf/
 %{__install} -m 0755 -D %{rootdir}/build/cassandra.yml %{buildroot}%{@SRC_PACKAGE_NAME@_dir}/conf/cassandra.yml
 %endif
+%if "%{jvm_exporter}" == "jvm_exporter"
+%{__install} -m 0755 -D %{rootdir}/build/opt/prometheus/jmx_exporter_base/lib/jmx_prometheus_httpserver-@PACKAGE_VERSION@-jar-with-dependencies.jar %{buildroot}/opt/prometheus/jmx_exporter_base/lib/jmx_prometheus_httpserver-@PACKAGE_VERSION@-jar-with-dependencies.jar
+mkdir -p %{buildroot}%{@SRC_PACKAGE_NAME@_dir}/conf/
+%{__install} -m 0755 -D %{rootdir}/build/jvm.yml %{buildroot}%{@SRC_PACKAGE_NAME@_dir}/conf/jvm.yml
+%endif
 
 %files
 
@@ -52,6 +57,10 @@ mkdir -p %{buildroot}%{@SRC_PACKAGE_NAME@_dir}/conf/
 %if "%{cassandra_exporter}" == "cassandra_exporter"
 /opt/prometheus/jmx_exporter_base/lib/jmx_prometheus_httpserver-@PACKAGE_VERSION@-jar-with-dependencies.jar
 %{@SRC_PACKAGE_NAME@_dir}/conf/cassandra.yml
+%endif
+%if "%{jvm_exporter}" == "jvm_exporter"
+/opt/prometheus/jmx_exporter_base/lib/jmx_prometheus_httpserver-@PACKAGE_VERSION@-jar-with-dependencies.jar
+%{@SRC_PACKAGE_NAME@_dir}/conf/jvm.yml
 %endif
 
 
