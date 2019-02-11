@@ -28,12 +28,6 @@ fi
 PIDFILE=${PIDFILE-"/var/run/prometheus/@SRC_PACKAGE_NAME@/@SRC_PACKAGE_NAME@.pid"}
 LOGFILE=${LOGFILE-"/var/log/prometheus/@SRC_PACKAGE_NAME@/@SRC_PACKAGE_NAME@.log"}
 
-IS_SYSTEMD=0
-
-if [ -d /run/systemd/system ]; then
-   IS_SYSTEMD=1
-fi
-
 RUN_AS_USER=${RUN_AS_USER-prometheus}
 RUN_AS_GROUP=${RUN_AS_GROUP-prometheus}
 
@@ -51,7 +45,7 @@ case $1 in
         log_daemon_msg "Starting @DEB_PACKAGE_NAME@"
         sanity_check || return $?
 
-		if [ -z "$IN_CONTAINER" ] || [ $IS_SYSTEMD -eq 1 ]
+		if [ ! -z "$IN_CONTAINER" ]
 		then
 			start-stop-daemon --start --quiet --no-close -u $RUN_AS_USER \
 				--pidfile "$PIDFILE" --chuid $RUN_AS_USER:$RUN_AS_GROUP \
@@ -72,7 +66,14 @@ case $1 in
             log_failure_msg "$PIDFILE doesn't exist. @DEB_PACKAGE_NAME@ not running?"
             exit 0
         fi
-        start-stop-daemon --stop --retry 30 --quiet --no-close --oknodo -u $RUN_AS_USER --pidfile "$PIDFILE" && rm -f "$PIDFILE"
+        pid=$(cat $PIDFILE)
+        cpid=$(pgrep -P $pid)
+        if [ $? -eq 0 ]
+        then
+        	sudo -u $RUN_AS_USER kill -9 $pid $cpid && rm -f "$PIDFILE"
+        else
+        	start-stop-daemon --stop --retry 30 --quiet --oknodo -u $RUN_AS_USER --pidfile "$PIDFILE" && rm -f "$PIDFILE"
+        fi
         rv=$?
         log_end_msg 0
         exit $rv

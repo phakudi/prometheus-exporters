@@ -18,6 +18,7 @@ User=prometheus
 Group=prometheus
 PIDFile=/var/run/prometheus/@SRC_PACKAGE_NAME@/@SRC_PACKAGE_NAME@.pid
 Type=simple
+KillMode=control-group
 
 WorkingDirectory=/opt/prometheus/@SRC_PACKAGE_NAME@/
 
