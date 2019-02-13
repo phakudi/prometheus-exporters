@@ -1,5 +1,8 @@
 #!/bin/bash
 
+IS_CURL=true
+IS_WGET=false
+
 if [ -r ../common.sh ]; then
 	. ../common/common.sh
 else
@@ -11,6 +14,8 @@ else
 		wget=$(which wget)
 		r=$?
 		if [ $r == 0 ]; then
+			IS_WGET=true
+			IS_CURL=false
 			$wget -O /tmp/common.sh https://raw.githubusercontent.com/phakudi/prometheus-exporters/master/common/common.sh
 		else
 			echo "Neither 'curl' nor 'wget' found. Please install at least one of these packages."
@@ -27,7 +32,7 @@ DEFAULT_POSTGRES_HOST='localhost'
 DEFAULT_POSTGRES_PORT='5432'
 DEFAULT_POSTGRES_USER='prometheus'
 DEFAULT_POSTGRES_PASSWORD='prometheus'
-DEFAULT_POSTGRES_URL='prometheus:prometheus@(localhost:5432)/'
+DEFAULT_POSTGRES_URL='user=prometheus host=localhost port=5432 password=prometheus dbname=postgres'
 
 function check_valid_postgres_user() {
 	local host=$1
@@ -88,7 +93,7 @@ function configure_exporter_interactively() {
 			[Nn]* ) exit;;
 		esac
 	fi
-	postgres_url="$postgres_user:$postgres_user_password@($postgres_host:$postgres_port)/"
+	postgres_url="user=$postgres_user host=$postgres_host port=$postgres_port password=$postgres_user_password dbname=postgres"
 	update_exporter_configuration $postgres_url
 }
 
@@ -106,7 +111,7 @@ function configure_exporter_noninteractively() {
 
 function update_exporter_configuration() {
 	print_message "info" "Updating exporter configuration..."
-	sed -e "s|export DATA_SOURCE_NAME=\"prometheus:prometheus@(localhost:5432)/\"|export DATA_SOURCE_NAME=\"${1}\"|g" -i /etc/default/postgres-exporter
+	sed -e "s|export DATA_SOURCE_NAME=\"user=prometheus host=localhost port=5432 password=prometheus dbname=postgres\"|export DATA_SOURCE_NAME=\"${1}\"|g" -i /etc/default/postgres-exporter
 	print_message "info" "DONE\n"
 }
 
@@ -119,6 +124,28 @@ function configure_exporter() {
 	fi
 }
 
+function check_exporter_up() {
+	exp_url="http://localhost:9187/metrics"
+	regex="^pg_up [0|1]$"
+	if $IS_CURL; then
+		res=$(curl $exp_url | egrep $regex)
+	elif $IS_WGET; then
+		res=$(wget -O $exp_url | egrep $regex)
+	fi
+
+	if [ ! -z "$res" ]
+	then
+		res=$(echo $res | cut -d" " -f2)
+		if [ $res -eq 1 ]
+		then
+			print_message "info" "Postgres Exporter is up and running"
+			return
+		fi
+	fi
+
+	print_message "error" "Postgres Exporter is not running"
+}
+
 trap 'post_error ${PACKAGE_NAME}' ERR
 check_root
 setup_log $PACKAGE_NAME
@@ -129,12 +156,14 @@ case $OS in
         install_redhat $PACKAGE_NAME
         configure_exporter $0
         start_service $PACKAGE_NAME
+        check_exporter_up
         ;;
 
     Debian)
         install_debian $PACKAGE_NAME
         configure_exporter $0
         start_service $PACKAGE_NAME
+        check_exporter_up
         ;;
 
     *)

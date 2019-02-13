@@ -1,5 +1,5 @@
 
-export DATA_SOURCE_NAME="prometheus:prometheus@(localhost:5432)/"
+export DATA_SOURCE_NAME="user=prometheus host=localhost port=5432 password=prometheus dbname=postgres"
 
 #
 # Below are the most common flags (and their defaults)
