@@ -139,15 +139,15 @@ function check_exporter_up() {
 		res=$(echo $res | cut -d" " -f2)
 		if [ $res -eq 1 ]
 		then
-			print_message "info" "Postgres Exporter is up and scraping metrics OK"
+			print_message "info" "Postgres Exporter is up and scraping metrics OK\n"
 			return
 		else
-			print_message "error" "Postgres Exporter is up but, unable to scrape metrics. Please verify logs and configuration to fix this."
+			print_message "error" "Postgres Exporter is up but, unable to scrape metrics. Please verify logs and configuration to fix this.\n"
 			return
 		fi
 	fi
 
-	print_message "error" "Postgres Exporter is not running"
+	print_message "error" "Postgres Exporter is not running.\n"
 }
 
 trap 'post_error ${PACKAGE_NAME}' ERR
