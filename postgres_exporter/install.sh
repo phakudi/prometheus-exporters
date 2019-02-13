@@ -34,13 +34,10 @@ function check_valid_postgres_user() {
 	local port=$2
 	local user=$3
 	local password=$4
-	res=$(PGPASSWORD="$password" psql postgres -U $user -h $host -tAc "SELECT 1 FROM pg_roles WHERE rolname='${user}'")
+	res=$(PGPASSWORD="$password" psql postgres -U $user -h $host -p $port -tAc "SELECT 1 FROM pg_roles WHERE rolname='${user}'")
 	rescode=$?
-	if [ ! -z "$numrows" ]; then
-		n=$(echo $numrows | cut -d " " -f2)
-		if [ $n -eq 1 ]; then
-			return 1
-		fi
+	if [ ! -z "$res" ] && [ $res -eq 1 ]; then
+		return 1
 	fi
 	print_message "warn" "Invalid postgres user '$user'. Would you like to create the user? Requires you to provide the postgres root password. (y/n)?"
 	read yesno
@@ -56,7 +53,7 @@ function create_postgres_user() {
 	local port=$2
 	local postgres_user=$3
 	local postgres_user_password=$4
-	read -p "Password for PostgreSQL 'root' User : " -s postgres_root_password
+	read -p "Password for PostgreSQL 'admin' User : " -s postgres_root_password
 	print_message "info" "Creating PostgreSQL user '${postgres_user}' and granting needed permissions..."
 	postgres -u root -p${postgres_root_password} -h ${host} -P ${port} -e "CREATE USER '${postgres_user}'@'localhost' IDENTIFIED BY '${postgres_user_password}';"
 	postgres -u root -p${postgres_root_password} -h ${host} -P ${port} -e "GRANT PROCESS ON *.* TO '${postgres_user}'@'localhost';"
