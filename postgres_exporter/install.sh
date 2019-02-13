@@ -93,7 +93,7 @@ function configure_exporter_interactively() {
 			[Nn]* ) exit;;
 		esac
 	fi
-	postgres_url="user=$postgres_user host=$postgres_host port=$postgres_port password=$postgres_user_password dbname=postgres"
+	postgres_url="host=$postgres_host port=$postgres_port user=$postgres_user password=$postgres_user_password dbname=postgres sslmode=disable"
 	update_exporter_configuration $postgres_url
 }
 
@@ -111,7 +111,7 @@ function configure_exporter_noninteractively() {
 
 function update_exporter_configuration() {
 	print_message "info" "Updating exporter configuration..."
-	sed -e "s|export DATA_SOURCE_NAME=\"user=prometheus host=localhost port=5432 password=prometheus dbname=postgres\"|export DATA_SOURCE_NAME=\"${1}\"|g" -i /etc/default/postgres-exporter
+	sed -e "s|export DATA_SOURCE_NAME=\"host=localhost port=5432 user=prometheus password=prom dbname=postgres sslmode=disable\"|export DATA_SOURCE_NAME=\"${1}\"|g" -i /etc/default/postgres-exporter
 	print_message "info" "DONE\n"
 }
 
