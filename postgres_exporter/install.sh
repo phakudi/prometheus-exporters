@@ -125,6 +125,7 @@ function configure_exporter() {
 }
 
 function check_exporter_up() {
+	sleep 2
 	exp_url="http://localhost:9187/metrics"
 	regex="^pg_up [0|1]$"
 	if $IS_CURL; then
@@ -138,7 +139,10 @@ function check_exporter_up() {
 		res=$(echo $res | cut -d" " -f2)
 		if [ $res -eq 1 ]
 		then
-			print_message "info" "Postgres Exporter is up and running"
+			print_message "info" "Postgres Exporter is up and scraping metrics OK"
+			return
+		else
+			print_message "error" "Postgres Exporter is up but, unable to scrape metrics. Please verify logs and configuration to fix this."
 			return
 		fi
 	fi
