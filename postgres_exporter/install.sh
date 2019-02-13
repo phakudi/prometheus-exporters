@@ -32,7 +32,7 @@ DEFAULT_POSTGRES_HOST='localhost'
 DEFAULT_POSTGRES_PORT='5432'
 DEFAULT_POSTGRES_USER='prometheus'
 DEFAULT_POSTGRES_PASSWORD='prometheus'
-DEFAULT_POSTGRES_URL='user=prometheus host=localhost port=5432 password=prometheus dbname=postgres'
+DEFAULT_POSTGRES_URL='host=localhost port=5432 user=prometheus password=prometheus dbname=postgres sslmode=disable'
 
 function check_valid_postgres_user() {
 	local host=$1
@@ -106,7 +106,7 @@ function configure_exporter_noninteractively() {
 
 function update_exporter_configuration() {
 	print_message "info" "Updating exporter configuration..."
-	sed -e "s|export DATA_SOURCE_NAME=\"host=localhost port=5432 user=prometheus password=prom dbname=postgres sslmode=disable\"|export DATA_SOURCE_NAME=\"${1}\"|g" -i /etc/default/postgres-exporter
+	sed -e "s|export DATA_SOURCE_NAME=\"$DEFAULT_POSTGRES_URL\"|export DATA_SOURCE_NAME=\"${1}\"|g" -i /etc/default/postgres-exporter
 	print_message "info" "DONE\n"
 }
 

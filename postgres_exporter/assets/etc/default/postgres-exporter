@@ -1,5 +1,5 @@
 
-export DATA_SOURCE_NAME="host=localhost port=5432 user=prometheus password=prom dbname=postgres sslmode=disable"
+export DATA_SOURCE_NAME="host=localhost port=5432 user=prometheus password=prometheus dbname=postgres sslmode=disable"
 
 #
 # Below are the most common flags (and their defaults)
