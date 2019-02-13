@@ -93,8 +93,8 @@ function configure_exporter_interactively() {
 			[Nn]* ) exit;;
 		esac
 	fi
-	postgres_url="host=$postgres_host\ port=$postgres_port\ user=$postgres_user\ password=$postgres_user_password\ dbname=postgres\ sslmode=disable"
-	update_exporter_configuration $postgres_url
+	postgres_url="host=$postgres_host port=$postgres_port user=$postgres_user password=$postgres_user_password dbname=postgres sslmode=disable"
+	update_exporter_configuration "$postgres_url"
 }
 
 function configure_exporter_noninteractively() {
