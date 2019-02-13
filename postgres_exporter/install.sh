@@ -58,21 +58,16 @@ function create_postgres_user() {
 	local port=$2
 	local postgres_user=$3
 	local postgres_user_password=$4
-	read -p "Password for PostgreSQL 'admin' User : " -s postgres_root_password
+	read -p "Username for PostgreSQL superuser : " postgres_root_user
+	read -p "Password for PostgreSQL User '$postgres_root_user' : " -s postgres_root_password
 	print_message "info" "Creating PostgreSQL user '${postgres_user}' and granting needed permissions..."
-	postgres -u root -p${postgres_root_password} -h ${host} -P ${port} -e "CREATE USER '${postgres_user}'@'localhost' IDENTIFIED BY '${postgres_user_password}';"
-	postgres -u root -p${postgres_root_password} -h ${host} -P ${port} -e "GRANT PROCESS ON *.* TO '${postgres_user}'@'localhost';"
-	postgres -u root -p${postgres_root_password} -h ${host} -P ${port} -e "GRANT SELECT ON performance_schema.* TO '${postgres_user}'@'localhost';"
-	postgres -u root -p${postgres_root_password} -h ${host} -P ${port} -e "GRANT REPLICATION CLIENT ON *.* to '${postgres_user}'@'localhost';"
+	PGPASSWORD=$postgres_root_password psql postgres -U $postgres_root_user -h ${host} -p ${port} -c "CREATE USER ${postgres_user} WITH PASSWORD '${postgres_user_password}';"
 	print_message "success" "Done"
 }
 
 function print_postgres_user_creation_help() {
 	print_message "info" "\n\nPlease run the following commands manually as postgres 'root' user to create user - '$3'\n\n"
-	print_message "info" "postgres -u root -p -h $1 -P $2 -e \"CREATE USER '${3}'@'localhost' IDENTIFIED BY '$4';\"\n"
-	print_message "info" "postgres -u root -p -h $1 -P $2 -e \"GRANT PROCESS ON *.* TO '${3}'@'localhost';\"\n"
-	print_message "info" "postgres -u root -p -h $1 -P $2 -e \"GRANT SELECT ON performance_schema.* TO '${3}'@'localhost';\"\n"
-	print_message "info" "postgres -u root -p -h $1 -P $2 -e \"GRANT REPLICATION CLIENT ON *.* to '${3}'@'localhost';\"\n\n"
+	print_message "info" "PGPASSWORD=<postgres_super_password> psql postgres -U <postgres_super_user> -h $1 -p $2 -c \"CREATE USER ${3} WITH PASSWORD '$4';\"\n"
 }
 
 function configure_exporter_interactively() {
