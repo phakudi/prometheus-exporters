@@ -127,7 +127,7 @@ function configure_exporter() {
 function check_exporter_up() {
 	sleep 2
 	exp_url="http://localhost:9187/metrics"
-	regex="^pg_up [0|1]$"
+	regex="^pg_up \[0|1\]$"
 	if $IS_CURL; then
 		res=$(curl $exp_url | egrep $regex)
 	elif $IS_WGET; then
